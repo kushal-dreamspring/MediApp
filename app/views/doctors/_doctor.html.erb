@@ -1,0 +1,23 @@
+<div id="<%= dom_id doctor %>" class="col-12 col-md-8 doctor-card bg-light">
+  <div class="row mb-3">
+    <div class="col-3">
+      <%= image_tag doctor.image, class: 'doctor-image', size: '75' %>
+    </div>
+    <div class="col-9 d-flex flex-column justify-content-center">
+      <p class="fw-bold mb-0">
+        <%= doctor.name %>
+      </p>
+      <p class="text-secondary mb-0">
+        <%= doctor.address %>
+      </p>
+    </div>
+  </div>
+  <div class="row justify-content-between">
+    <div class="col-6 col-lg-7 d-flex flex-column justify-content-center">
+      <p class="text-success small mb-0">Next Available - </p>
+    </div>
+    <div class="col-6 col-lg-5">
+      <button class="btn btn-primary">Book Visit</button>
+    </div>
+  </div>
+</div>

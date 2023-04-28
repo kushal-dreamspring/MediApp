@@ -1,2 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+
+$gray-200: e8e8e8;
+$body-bg: #f9f9ff;
+$theme-colors: (
+        "primary": #443eff,
+        "secondary": #6a6a6a,
+        "success": #3BA04C,
+        "info": $info,
+        "warning": $warning,
+        "danger": $danger,
+        "light": #ffffff,
+        "dark": $dark
+);
+
+
+$font-family-base: 'Inter', sans-serif;
+$font-size-base: 16px;
+$font-size-sm: 12px;
+$font-size-lg: 18px;
+$line-height-base: 1.5;
+$line-height-sm: 1.25;
+$line-height-lg: 2;
+
+$h5-font-size: $font-size-base * 1.125;
+
+$btn-border-radius: 4px;
+$btn-font-size: 14px;
+$btn-padding-x: 32px;
+$btn-padding-y: 12px;
+
+$navbar-brand-height: 28px;
+
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
+
+.navbar {
+  box-shadow: 0 4px 6px rgba(65, 52, 146, 0.06), 0 4px 12px rgba(65, 52, 146, 0.12);
+}
+
+.navbar-brand {
+  font-weight: 600;
+  line-height: 28px;
+}
+
+.nav-item {
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.doctor-card {
+  padding: 10px;
+  max-width: 400px;
+  border: 1px solid #E8E8E8;
+  border-radius: 8px;
+}
+
+.doctor-image {
+  height: 75px;
+  border-radius: 4px;
+}
