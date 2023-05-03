@@ -1,4 +1,4 @@
-<div id="<%= dom_id doctor %>" class="col-12 col-md-8 doctor-card bg-light">
+<div id="<%= dom_id doctor %>" class="g-col-12 g-col-md-6 doctor-card bg-light">
   <div class="row mb-3">
     <div class="col-3">
       <%= image_tag doctor.image, class: 'doctor-image', size: '75' %>
@@ -17,7 +17,7 @@
       <p class="text-success small mb-0">Next Available - </p>
     </div>
     <div class="col-6 col-lg-5">
-      <button class="btn btn-primary">Book Visit</button>
+      <%= link_to "Book Visit", new_appointment_path(doctor_id: doctor), class: "btn btn-primary" %>
     </div>
   </div>
 </div>

@@ -1,15 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
 @import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";
 
+$enable-cssgrid: true;
 $gray-200: e8e8e8;
 $body-bg: #f9f9ff;
 $theme-colors: (
         "primary": #443eff,
         "secondary": #6a6a6a,
         "success": #3BA04C,
-        "info": $info,
+        "info": #bdbdbd,
         "warning": $warning,
         "danger": $danger,
         "light": #ffffff,
@@ -33,6 +34,10 @@ $btn-padding-x: 32px;
 $btn-padding-y: 12px;
 
 $navbar-brand-height: 28px;
+$carousel-control-color: #0a0926;
+$carousel-control-width: 12px;
+$carousel-control-prev-icon-bg: url("data:image/svg+xml,<svg viewBox='0 0 8 14' fill='none' xmlns='http://www.w3.org/2000/svg'> <path d='M7 1L1 7L7 13' stroke='#{$carousel-control-color}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/> </svg>");
+$carousel-control-next-icon-bg: url("data:image/svg+xml,<svg viewBox='0 0 8 14' fill='none' xmlns='http://www.w3.org/2000/svg'> <path d='M1 13L7 7L1 1' stroke='#{$carousel-control-color}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/> </svg>");
 
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
@@ -53,7 +58,6 @@ $navbar-brand-height: 28px;
 
 .doctor-card {
   padding: 10px;
-  max-width: 400px;
   border: 1px solid #E8E8E8;
   border-radius: 8px;
 }
@@ -61,4 +65,48 @@ $navbar-brand-height: 28px;
 .doctor-image {
   height: 75px;
   border-radius: 4px;
+}
+
+.carousel-item.active, .carousel-item-next, .carousel-item-prev {
+  display: flex;
+  justify-content: stretch;
+}
+
+.carousel::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: #d9d9d9;
+  z-index: -1;
+}
+
+.date-item {
+  cursor: pointer;
+  height: 75px;
+}
+
+.date-item.active {
+  &::after {
+    content: " ";
+    display: block;
+    position: relative;
+    bottom: -13px;
+    left: 0;
+    height: 8px;
+    background-color: #443eff;
+    border-radius: 3px 3px 0 0;
+    z-index: 2;
+  }
+
+  h5 {
+    font-weight: bold;
+  }
+}
+
+.active-date {
+
 }

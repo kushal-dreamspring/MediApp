@@ -9,6 +9,7 @@
 # ignore ide config
 /.idea
 /.vscode
+.run
 
 # Ignore bundler config.
 /.bundle

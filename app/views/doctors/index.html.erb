@@ -1,16 +1,16 @@
-<div class="container p-5">
-  <p style="color: green"><%= notice %></p>
+<% if notice %>
+  <div class="alert alert-success" role="alert"><%= notice %></div>
+<% end %>
 
-  <div class="row m-5 px-5">
-    <div class="col d-flex">
-      <%= image_tag 'stethoscope.svg', class: 'me-2 h-100' %>
-      <h5 class="h5 mb-0">My Doctors</h5>
-    </div>
+<div class="row mb-5">
+  <div class="col d-flex">
+    <%= image_tag 'stethoscope.svg', class: 'me-2 h-100' %>
+    <h5 class="h5 mb-0">My Doctors</h5>
   </div>
+</div>
 
-  <div id="doctors" class="row gap-5 m-2 m-lg-5 px-2 px-lg-5">
-    <% @doctors.each do |doctor| %>
-      <%= render doctor %>
-    <% end %>
-  </div>
+<div id="doctors" class="grid gap-2">
+  <% @doctors.each do |doctor| %>
+    <%= render doctor %>
+  <% end %>
 </div>
