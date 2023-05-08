@@ -8,6 +8,20 @@ class AppointmentsController < ApplicationController
 
   # GET /appointments/1 or /appointments/1.json
   def show
+    @appointment = Appointment.all.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render layout: 'application',
+               pdf: "Appointment No. #{@appointment.id}",
+               page_size: 'A5',
+               orientation: "Landscape",
+               zoom: 1,
+               dpi: 75,
+               locals: { appointment: @appointment }
+      end
+    end
   end
 
   # GET /appointments/new
@@ -20,12 +34,15 @@ class AppointmentsController < ApplicationController
 
     @dates.each do |date|
       @times[date] = []
-      time = doctor.start_time
-      while time < doctor.end_time do
-        date_time = Time.zone.at(Time.zone.at(date.to_datetime) + time - Time.zone.local(2000, 1, 1, 0, 0, 0))
-        date_time += 3600 if time == doctor.lunch_time || @booked_appointments.include?(date_time)
+
+      date_time = [time_to_datetime(date, doctor.start_time), Time.now].max
+      lunch_date_time = time_to_datetime(date, doctor.lunch_time)
+      end_date_time = time_to_datetime(date, doctor.end_time)
+
+      while date_time < end_date_time do
+        date_time += 3600 if date_time == lunch_date_time || @booked_appointments.include?(date_time)
         @times[date].push({ time: date_time })
-        time += 3600
+        date_time += 3600
       end
     end
   end
@@ -97,5 +114,9 @@ class AppointmentsController < ApplicationController
 
   def user_params
     params.require(:appointment).permit(:name, :email)
+  end
+
+  def time_to_datetime(date, time)
+    Time.zone.at(Time.zone.at(date.to_datetime) + time - Time.zone.local(2000, 1, 1, 0, 0, 0))
   end
 end

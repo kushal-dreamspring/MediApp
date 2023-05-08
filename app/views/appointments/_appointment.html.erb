@@ -1,16 +1,46 @@
-<div id="<%= dom_id appointment %>">
-  <p>
-    <strong>Doctor:</strong>
-    <%= appointment.doctor_id %>
-  </p>
+<div id="<%= dom_id appointment %>" class="g-col-12 g-col-md-6 px-3 bg-white rounded-3 shadow">
+  <div class="row my-3">
+    <div class="col-3">
+      <%= image_tag appointment.doctor.image, class: 'doctor-image', size: '75' %>
+    </div>
+    <div class="col-9 d-flex flex-column justify-content-center">
+      <p class="fw-bold mb-0">
+        <%= appointment.doctor.name %>
+      </p>
+      <p class="text-secondary mb-0">
+        <%= appointment.doctor.address %>
+      </p>
+    </div>
+  </div>
+  <p class="col-12 small text-secondary">🗓 Your Consultation Details</p>
+  <div class="row my-3 justify-content-center">
+    <p class="col-7 my-0 d-flex flex-row gap-3 justify-content-start align-items-center fw-semibold">
+      <%= image_tag 'calendar-2', size: '13' %>
+      <%= 'Today, ' if appointment.date_time.to_date == Date.today %>
+      <%= 'Tomorrow, ' if appointment.date_time.to_date == Date.today + 1 %>
+      <%= appointment.date_time.to_date.strftime("%a, #{appointment.date_time.to_date.day.ordinalize}") %>
+    </p>
+    <div class="vr p-0"></div>
+    <p class="col-4 my-0 d-flex flex-row gap-3 justify-content-end align-items-center fw-semibold">
+      <%= image_tag 'clock', size: '13' %>
+      <%= appointment.date_time.to_time.strftime("%I:%M %p") %>
+    </p>
+  </div>
+  <div class="row my-3 p-3 gap-3 justify-content-start">
+    <div class="col-12 p-0">Download your invoice</div>
+    <button class="col-3 btn btn-dark py-1">CSV</button>
+    <button class="col-3 btn btn-dark py-1">TXT</button>
+    <%= link_to 'PDF', appointment_path(appointment, format: :pdf), class: "col-3 btn btn-dark py-1" %>
+  </div>
 
-  <p>
-    <strong>User:</strong>
-    <%= appointment.user_id %>
-  </p>
+  <div class="row mx-1 my-3 px-3 py-2 gap-3 rounded-3 justify-content-between bg-light">
+    <p class="col-5 m-0">Amount Paid</p>
+    <p class="col-5 m-0 fw-bold text-primary"><%= appointment.currency %> <%= appointment.amount %>/-</p>
+  </div>
 
-  <p>
-    <strong>Date:</strong>
-    <%= appointment.date_time %>
-  </p>
+  <%= button_to "Cancel Appointment",
+                appointment,
+                method: :delete,
+                class: 'w-100 mb-3 fw-bold text-uppercase text-white btn btn-danger'
+  %>
 </div>

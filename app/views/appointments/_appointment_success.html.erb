@@ -6,7 +6,11 @@
       <h6 class="h6 card-subtitle mb-2 text-center text-body-secondary">Appointment Booked</h6>
       <p class="card-text fs-4 fw-bold text-primary text-center">
         <%= render inline: (render file: Rails.root.join('app', 'assets', 'images', 'calendar-2.svg')) %>
-        <span class="mx-2">Today, 17th February, 4:00 PM</span>
+        <span class="mx-2">
+          <%= 'Today, ' if appointment_time.to_date == Date.today %>
+          <%= 'Tomorrow, ' if appointment_time.to_date == Date.today + 1 %>
+          <%= appointment_time.to_date.strftime("%a, #{appointment_time.to_date.day.ordinalize} %I:%M %p") %>
+        </span>
       </p>
       <p class="fs-6 text-center text-info">Meeting starts in</p>
       <div class="countdown d-flex justify-content-center" data-controller="countdown">

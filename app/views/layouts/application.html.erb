@@ -6,11 +6,12 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
-  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag "application.bootstrap", "data-turbo-track": "reload" %>
   <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
 </head>
 
 <body>
+<!--TODO: App wide notice and error -->
 <%= render "nav" %>
 <div class="container mt-5" style="max-width: 856px">
   <%= yield %>

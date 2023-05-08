@@ -2,15 +2,10 @@
   <div class="alert alert-success" role="alert"><%= notice %></div>
 <% end %>
 
-<h1>Appointments</h1>
+<h1 class="h1 text-center mb-3">Appointments</h1>
 
-<div id="appointments">
+<div id="appointments" class="grid gap-5">
   <% @appointments.each do |appointment| %>
     <%= render appointment %>
-    <p>
-      <%= link_to "Show this appointment", appointment %>
-    </p>
   <% end %>
 </div>
-
-<%= link_to "New appointment", new_appointment_path %>

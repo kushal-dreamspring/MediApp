@@ -15,7 +15,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_29_185813) do
     t.integer "doctor_id", null: false
     t.integer "user_id", null: false
     t.datetime "date_time"
-    t.float "amount", default: 500.0
+    t.decimal "amount", precision: 10, scale: 2
     t.integer "currency", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

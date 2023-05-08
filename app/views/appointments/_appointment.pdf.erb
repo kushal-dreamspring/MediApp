@@ -1,0 +1,23 @@
+<h1 class="heading h1 my-3 p-3 text-center">Payment Receipt</h1>
+<h2 class="subheading h2 mb-5 pb-3 text-center">
+  Dr. <%= appointment.doctor.name %>
+  <div class="vr"></div>
+  <%= appointment.doctor.address %>
+</h2>
+
+<h2 class="h2">Appointment No. : <span class="patient_name"><%= appointment.id %></span></h2>
+<h2 class="h2">Patient Name: <span class="patient_name"><%= appointment.user.name %></span></h2>
+<h2 class="h2">Date: <span class="patient_name">
+  <%= 'Today, ' if appointment.date_time.to_date == Date.today %>
+  <%= 'Tomorrow, ' if appointment.date_time.to_date == Date.today + 1 %>
+  <%= appointment.date_time.to_date.strftime("%a, #{appointment.date_time.to_date.day.ordinalize}") %>
+</span></h2>
+<h2 class="h2">Time: <span class="patient_name"><%= appointment.date_time.to_time.strftime("%I:%M %p") %></span></h2>
+<h2 class="h2"><%= appointment.currency %> <span class="patient_name"><%= appointment.amount %></span></h2>
+
+<div class="terms">
+  <h5>Terms</h5>
+  <p>
+    The appointment fee is refundable upon cancellation if request is placed at least 30 minutes before appointment
+  </p>
+</div>

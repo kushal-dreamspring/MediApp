@@ -1,0 +1,48 @@
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+
+$font-family-base: Georgia, serif;
+$font-size-base: 32px;
+$line-height-base: 1.4;
+
+@import 'bootstrap/scss/bootstrap';
+@import 'bootstrap-icons/font/bootstrap-icons';
+
+.heading {
+  width: 100%;
+  background: #222;
+  color: white;
+  font: bold 15px Helvetica, Sans-Serif;
+  letter-spacing: 16px;
+  text-transform: uppercase;
+}
+
+.subheading {
+  border-bottom: 1px solid black;
+  text-transform: uppercase;
+
+  .vr {
+    width: 2px;
+    height: 100%;
+    opacity: 1;
+    margin: 0 5px;
+  }
+}
+
+.patient_name {
+  text-decoration: underline;
+}
+
+.terms {
+  text-align: center;
+  margin: 20px 0 0 0;
+}
+
+.terms h5 {
+  text-transform: uppercase;
+  font: 13px Helvetica, Sans-Serif;
+  letter-spacing: 10px;
+  border-bottom: 1px solid black;
+  padding: 0 0 8px 0;
+  margin: 0 0 8px 0;
+}
