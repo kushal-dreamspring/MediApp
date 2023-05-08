@@ -1,0 +1,47 @@
+<div class="success-page mx-auto">
+  <div class="card mx-auto p-3 border-0 shadow" style="width: 568px;">
+    <%= image_tag 'congrats.svg', class: "card-img-top m-auto", alt: "congrats", height: '45' %>
+    <div class="card-body">
+      <h4 class="h4 card-title mb-4 text-success text-center fw-bold">Congratulations</h4>
+      <h6 class="h6 card-subtitle mb-2 text-center text-body-secondary">Appointment Booked</h6>
+      <p class="card-text fs-4 fw-bold text-primary text-center">
+        <%= render inline: (render file: Rails.root.join('app', 'assets', 'images', 'calendar-2.svg')) %>
+        <span class="mx-2">Today, 17th February, 4:00 PM</span>
+      </p>
+      <p class="fs-6 text-center text-info">Meeting starts in</p>
+      <div class="countdown d-flex justify-content-center" data-controller="countdown">
+        <div class="d-none" data-countdown-target="time">
+          <%= appointment_time %>
+        </div>
+
+        <div class="days">
+          <span data-countdown-target="day"></span>
+          <span data-countdown-target="day"></span>
+          <span class="label">Days</span>
+        </div>
+        <span class="separator">:</span>
+        <div class="hours">
+          <span data-countdown-target="hour"></span>
+          <span data-countdown-target="hour"></span>
+          <span class="label">Hours</span>
+        </div>
+        <span class="separator">:</span>
+        <div class="minutes">
+          <span data-countdown-target="minute"></span>
+          <span data-countdown-target="minute"></span>
+          <span class="label">Mins</span>
+        </div>
+        <span class="separator">:</span>
+        <div class="seconds">
+          <span data-countdown-target="second"></span>
+          <span data-countdown-target="second"></span>
+          <span class="label">Secs</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%= link_to appointments_url, class: "btn btn-outline-primary w-100 my-5" do %>
+    My Appointments <%= image_tag "arrow.svg", alt: "arrow", size: '24', class: 'mx-2' %>
+  <% end %>
+</div>

@@ -1,7 +1,7 @@
 class CreateDoctors < ActiveRecord::Migration[7.0]
   def change
     create_table :doctors do |t|
-      t.string :name
+      t.string :name, unique: true
       t.string :image
       t.string :address
       t.time :start_time

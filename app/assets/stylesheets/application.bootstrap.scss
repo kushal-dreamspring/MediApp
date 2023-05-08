@@ -27,6 +27,7 @@ $line-height-sm: 1.25;
 $line-height-lg: 2;
 
 $h5-font-size: $font-size-base * 1.125;
+$input-font-size-lg: 16px;
 
 $btn-border-radius: 4px;
 $btn-font-size: 14px;
@@ -107,6 +108,82 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg viewBox='0 0 8 14' 
   }
 }
 
-.active-date {
+.appointment-form, .user-form {
+  display: none;
+}
 
+.appointment-form.active {
+  display: block;
+}
+
+.user-form.active {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 328px;
+  height: 100vh;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.btn-check + .currency-select {
+  background-color: #FFFFFF;
+  border: 1px solid #DBDBDB;
+  border-radius: 8px;
+
+  &:hover {
+    font-weight: bold;
+    background: #DBDEFF;
+    border: none;
+  }
+}
+
+.btn-check:checked + .currency-select {
+  font-weight: bold;
+  background-color: #DBDEFF;
+  border: none;
+}
+
+.success-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 568px;
+  height: 100vh;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.countdown {
+  color: #443EFF;
+
+  .separator {
+    margin: 4px;
+  }
+
+  & > div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 0.5rem;
+    justify-items: center;
+  }
+
+  .label {
+    font-size: 14px;
+    color: #686868;
+    grid-column: 1 / 3;
+  }
+
+  & > *:not(.separator) > *:not(.label) {
+    width: 19px;
+    border-radius: 8px;
+    height: 32px;
+    padding: 4px;
+    background: #F5F5F5;
+    font-weight: bold;
+  }
 }

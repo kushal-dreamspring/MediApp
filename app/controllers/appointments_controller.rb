@@ -23,7 +23,7 @@ class AppointmentsController < ApplicationController
       time = doctor.start_time
       while time < doctor.end_time do
         date_time = Time.zone.at(Time.zone.at(date.to_datetime) + time - Time.zone.local(2000, 1, 1, 0, 0, 0))
-        time += 3600 if time == doctor.lunch_time || @booked_appointments.include?(date_time)
+        date_time += 3600 if time == doctor.lunch_time || @booked_appointments.include?(date_time)
         @times[date].push({ time: date_time })
         time += 3600
       end
@@ -36,12 +36,22 @@ class AppointmentsController < ApplicationController
 
   # POST /appointments or /appointments.json
   def create
-    @appointment = Appointment.new(appointment_params)
+    @user = User.find_by(email: user_params[:email])
+    @user = User.create(user_params) if @user.nil?
+
+    @appointment = Appointment.new(**appointment_params,
+                                   amount: CurrencyService.amount_in_currency(500, appointment_params[:currency]),
+                                   user_id: @user.id)
 
     respond_to do |format|
       if @appointment.save
-        format.html { redirect_to new_user_path(appointment_id: @appointment), notice: "Appointment was successfully created." }
-        format.json { render :show, status: :created, location: @appointment }
+        format.turbo_stream {
+          render turbo_stream: turbo_stream.replace(
+            :new_appointment,
+            partial: 'appointments/appointment_success',
+            locals: { appointment_time: @appointment.date_time }
+          )
+        }
       else
         puts @appointment.errors.full_messages
         format.html { render :new, status: :unprocessable_entity }
@@ -82,6 +92,10 @@ class AppointmentsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def appointment_params
-    params.require(:appointment).permit(:doctor_id, :user_id, :date_time)
+    params.require(:appointment).permit(:doctor_id, :date_time, :amount, :currency)
+  end
+
+  def user_params
+    params.require(:appointment).permit(:name, :email)
   end
 end

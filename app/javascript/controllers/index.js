@@ -5,5 +5,7 @@
 import {application} from "./application"
 
 import AppointmentController from "./appointment_controller"
+import CountdownController from "./countdown_controller"
 
 application.register("appointment", AppointmentController)
+application.register("countdown", CountdownController)

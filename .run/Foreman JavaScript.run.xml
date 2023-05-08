@@ -1,6 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Foreman JavaScript" type="JavascriptDebugType" uri="http://0.0.0.0:3000/">
-    <mapping url="http://0.0.0.0:3000" local-file="$PROJECT_DIR$/public" />
-    <method v="2" />
-  </configuration>
-</component>

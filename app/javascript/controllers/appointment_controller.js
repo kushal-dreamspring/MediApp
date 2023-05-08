@@ -1,13 +1,14 @@
 import {Controller} from "@hotwired/stimulus"
 
 export default class extends Controller {
-    static targets = ["selectedDate"]
+    static targets = ["appointmentForm", "userForm"]
 
     connect() {
-        this.selectedDateTarget.innerHTML = new Date().toDateString()
+        this.appointmentFormTarget.classList.add('active')
     }
 
-    setDate(event) {
-        this.selectedDateTarget.innerHTML = new Date(event.target.attributes['value'].value).toDateString()
+    showUserForm() {
+        this.appointmentFormTarget.classList.remove('active')
+        this.userFormTarget.classList.add('active')
     }
 }
