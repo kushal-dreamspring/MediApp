@@ -12,6 +12,7 @@ class AppointmentsController < ApplicationController
 
     respond_to do |format|
       format.html
+      format.csv
       format.pdf do
         render layout: 'application',
                pdf: "Appointment No. #{@appointment.id}",
@@ -21,6 +22,7 @@ class AppointmentsController < ApplicationController
                dpi: 75,
                locals: { appointment: @appointment }
       end
+      format.txt
     end
   end
 
@@ -35,12 +37,15 @@ class AppointmentsController < ApplicationController
     @dates.each do |date|
       @times[date] = []
 
-      date_time = [time_to_datetime(date, doctor.start_time), Time.now].max
+      date_time = time_to_datetime(date, doctor.start_time)
       lunch_date_time = time_to_datetime(date, doctor.lunch_time)
       end_date_time = time_to_datetime(date, doctor.end_time)
 
       while date_time < end_date_time do
-        date_time += 3600 if date_time == lunch_date_time || @booked_appointments.include?(date_time)
+        if date_time < Time.now || date_time == lunch_date_time || @booked_appointments.include?(date_time)
+          date_time += 3600
+          next
+        end
         @times[date].push({ time: date_time })
         date_time += 3600
       end
@@ -117,6 +122,7 @@ class AppointmentsController < ApplicationController
   end
 
   def time_to_datetime(date, time)
-    Time.zone.at(Time.zone.at(date.to_datetime) + time - Time.zone.local(2000, 1, 1, 0, 0, 0))
+    Time.zone = 'Kolkata'
+    Time.zone.at(Time.zone.at(date.to_datetime) - Time.zone.utc_offset + time - Time.zone.utc_offset - Time.zone.iso8601('2000-01-01T00:00:00'))
   end
 end

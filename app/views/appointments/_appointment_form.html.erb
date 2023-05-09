@@ -47,8 +47,8 @@
         </h6>
         <div class="grid gap-2 my-5">
           <% @times[date].each_with_index do |time, i| %>
-            <%= form.radio_button :date_time, time[:time], class: "btn-check", checked: i == 0 %>
-            <%= form.label "date_time_#{time[:time].to_s.gsub(' ', '_').gsub(':', '').downcase}",
+            <%= form.radio_button :date_time, time[:time], class: "btn-check" %>
+            <%= form.label "date_time_#{time[:time].to_s.gsub(' ', '_').gsub(/[:+]/, '').downcase}",
                            time[:time].strftime("%I:%M %p"),
                            class: "g-col-6 g-col-sm-4 btn btn-outline-primary"
             %>
