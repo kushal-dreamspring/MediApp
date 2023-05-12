@@ -11,11 +11,11 @@
       <span class="visually-hidden">Previous</span>
     </button>
     <div class="carousel-inner" role="tablist">
-      <% @dates.each_slice(3).each do |date| %>
-        <div class="carousel-item <%= date.include?(Date.today) ? 'active' : '' %>">
+      <% @times.keys.each_slice(3).each_with_index do |date, i| %>
+        <div class="carousel-item <%= i == 0 ? 'active' : '' %>">
           <% date.each do |d| %>
             <div
-              class="date-item w-100 <%= d == Date.today ? 'active' : '' %>"
+              class="date-item w-100"
               data-bs-toggle="tab"
               data-bs-target="#nav-<%= d %>"
               type="button"
@@ -39,14 +39,14 @@
 </section>
 
 <section class="my-5">
-  <% @dates.each do |date| %>
+  <% @times.each do |date, slots| %>
     <div class="tab-content">
-      <div id="nav-<%= date %>" class="tab-pane fade <%= date == Date.today ? 'show active' : '' %>" role="tabpanel">
+      <div id="nav-<%= date %>" class="tab-pane fade" role="tabpanel">
         <h6 class="fw-semibold">
           <%= image_tag 'clock.svg', class: 'mx-2' %> Select a time for <span class="text-primary"><%= date %></span>
         </h6>
         <div class="grid gap-2 my-5">
-          <% @times[date].each_with_index do |time, i| %>
+          <% slots.each do |time| %>
             <%= form.radio_button :date_time, time[:time], class: "btn-check" %>
             <%= form.label "date_time_#{time[:time].to_s.gsub(' ', '_').gsub(/[:+]/, '').downcase}",
                            time[:time].strftime("%I:%M %p"),
@@ -58,7 +58,7 @@
     </div>
   <% end %>
 </section>
-
+<!-- TODO: Add Validation -->
 <section class="my-5 py-5">
   <small class="d-block m-auto text-center">
     Due to high demand, it is difficult to reschedule appointments. Please book your slot carefully!

@@ -29,12 +29,13 @@ class AppointmentsController < ApplicationController
   # GET /appointments/new
   def new
     @appointment = Appointment.new
-    @dates = (0..6).map { |i| Date.today + i }
     @times = {}
-    doctor = Doctor.find(params[:doctor_id])
-    @booked_appointments = Appointment.where(doctor_id: params[:doctor_id]).map { |ap| ap.date_time }
 
-    @dates.each do |date|
+    dates = (0..6).map { |i| Date.today + i }
+    doctor = Doctor.find(params[:doctor_id])
+    booked_appointments = Appointment.where(doctor_id: params[:doctor_id]).map { |ap| ap.date_time }
+
+    dates.each do |date|
       @times[date] = []
 
       date_time = time_to_datetime(date, doctor.start_time)
@@ -42,13 +43,15 @@ class AppointmentsController < ApplicationController
       end_date_time = time_to_datetime(date, doctor.end_time)
 
       while date_time < end_date_time do
-        if date_time < Time.now || date_time == lunch_date_time || @booked_appointments.include?(date_time)
+        if date_time < Time.now || date_time == lunch_date_time || booked_appointments.include?(date_time)
           date_time += 3600
           next
         end
         @times[date].push({ time: date_time })
         date_time += 3600
       end
+
+      @times.delete(date) if @times[date].empty?
     end
   end
 
@@ -67,6 +70,10 @@ class AppointmentsController < ApplicationController
 
     respond_to do |format|
       if @appointment.save
+        InvoiceMailer
+          .with(appointment_id: @appointment.id, pdf: appointment_url(@appointment, format: :pdf))
+          .invoice_email.deliver_later(wait_until: @appointment.date_time + 2.hours)
+
         format.turbo_stream {
           render turbo_stream: turbo_stream.replace(
             :new_appointment,

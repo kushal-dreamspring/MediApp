@@ -9,14 +9,12 @@
         <span class="mx-2">
           <%= 'Today, ' if appointment_time.to_date == Date.today %>
           <%= 'Tomorrow, ' if appointment_time.to_date == Date.today + 1 %>
-          <%= appointment_time.to_date.strftime("%a, #{appointment_time.to_date.day.ordinalize} %I:%M %p") %>
+          <%= appointment_time.to_datetime.strftime("%a, #{appointment_time.to_date.day.ordinalize} %I:%M %p") %>
         </span>
       </p>
       <p class="fs-6 text-center text-info">Meeting starts in</p>
       <div class="countdown d-flex justify-content-center" data-controller="countdown">
-        <div class="d-none" data-countdown-target="time">
-          <%= appointment_time %>
-        </div>
+        <div class="d-none" data-countdown-target="time"><%= appointment_time.to_datetime %></div>
 
         <div class="days">
           <span data-countdown-target="day"></span>

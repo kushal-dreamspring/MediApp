@@ -1,0 +1,14 @@
+<h1>Greetings to MediApp, <%= @appointment.user.name %></h1>
+<p>
+  You have successfully booked an appointment with
+  <strong>Dr. <%= @appointment.doctor.name %></strong> for
+  <strong>
+    <%= 'Today, ' if @appointment.date_time.to_date == Date.today %>
+    <%= 'Tomorrow, ' if @appointment.date_time.to_date == Date.today + 1 %>
+    <%= @appointment.date_time.to_datetime.strftime("%a, #{@appointment.date_time.to_date.day.ordinalize} %I:%M %p") %>
+  </strong>
+</p>
+<p>
+  To get your invoice, just follow this link: <%= @url %>.
+</p>
+<p>Thanks for booking and have a great day!</p>
