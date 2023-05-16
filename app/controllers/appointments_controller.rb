@@ -11,7 +11,6 @@ class AppointmentsController < ApplicationController
     @appointment = Appointment.all.find(params[:id])
 
     respond_to do |format|
-      format.html
       format.csv
       format.pdf do
         render layout: 'application',
@@ -55,10 +54,6 @@ class AppointmentsController < ApplicationController
     end
   end
 
-  # GET /appointments/1/edit
-  def edit
-  end
-
   # POST /appointments or /appointments.json
   def create
     @user = User.find_by(email: user_params[:email])
@@ -84,19 +79,6 @@ class AppointmentsController < ApplicationController
       else
         puts @appointment.errors.full_messages
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @appointment.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /appointments/1 or /appointments/1.json
-  def update
-    respond_to do |format|
-      if @appointment.update(appointment_params)
-        format.html { redirect_to appointment_url(@appointment), notice: "Appointment was successfully updated." }
-        format.json { render :show, status: :ok, location: @appointment }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @appointment.errors, status: :unprocessable_entity }
       end
     end

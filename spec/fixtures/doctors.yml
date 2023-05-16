@@ -1,0 +1,16 @@
+one:
+  id: 1
+  name: Batman
+  image: https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.iD-DLh5NRStUnPKSUq1IIQHaFf%26pid%3DApi&f=1&ipt=ee801bcb736c46dc3abe22650ad3841b2462ed1bee08832a8e861b7da5fe46b9&ipo=images
+  address: Wayne Mansion, Gotham
+  start_time: 2000-01-01 09:00:00
+  end_time: 2000-01-01 17:00:00
+  lunch_time: 2000-01-01 13:00:00
+two:
+  id: 2
+  name: Robin
+  image: https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.nwR6mXdwTgObZQuEC_CvDwHaHa%26pid%3DApi&f=1&ipt=c953c32959f8a0e3b3a6699ee5419ef5cace6283cb8189d8cf91440c4ee6e947&ipo=images
+  address: Wayne Mansion, Gotham
+  start_time: 2000-01-01 11:00:00
+  end_time: 2000-01-01 18:00:00
+  lunch_time: 2000-01-01 14:00:00

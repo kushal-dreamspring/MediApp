@@ -13,7 +13,7 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe "/appointments", type: :request do
-  
+  fixtures :doctors
   # This should return the minimal set of attributes required to create a valid
   # Appointment. As you add validations to Appointment, be sure to
   # adjust the attributes here as well.
@@ -43,15 +43,7 @@ RSpec.describe "/appointments", type: :request do
 
   describe "GET /new" do
     it "renders a successful response" do
-      get new_appointment_url
-      expect(response).to be_successful
-    end
-  end
-
-  describe "GET /edit" do
-    it "renders a successful response" do
-      appointment = Appointment.create! valid_attributes
-      get edit_appointment_url(appointment)
+      get new_appointment_url(doctor_id: 1)
       expect(response).to be_successful
     end
   end
