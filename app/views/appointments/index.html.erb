@@ -1,11 +1,11 @@
-<% if notice %>
-  <div class="alert alert-success" role="alert"><%= notice %></div>
-<% end %>
-
 <h1 class="h1 text-center mb-3">Appointments</h1>
 
-<div id="appointments" class="grid gap-5">
-  <% @appointments.each do |appointment| %>
-    <%= render appointment %>
-  <% end %>
-</div>
+<% if @appointments %>
+  <div id="appointments" class="grid gap-5">
+    <% @appointments.each do |appointment| %>
+      <%= render appointment %>
+    <% end %>
+  </div>
+<% else %>
+  <h4 class="h4 text-center text-info mt-5">You have no appointments yet!!</h4>
+<% end %>

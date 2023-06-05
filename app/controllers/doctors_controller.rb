@@ -4,6 +4,11 @@ class DoctorsController < ApplicationController
   # GET /doctors or /doctors.json
   def index
     @doctors = Doctor.all
+    @next_appointment = {}
+    # TODO: Add logic to find next appointment
+    @doctors.each do |doctor|
+      @next_appointment[doctor.id] = '3:00 PM'
+    end
   end
 
   private

@@ -11,9 +11,11 @@
 </head>
 
 <body>
-<!--TODO: App wide notice and error -->
 <%= render "nav" %>
 <div class="container mt-5" style="max-width: 856px">
+  <% if notice %>
+    <div class="alert alert-success" role="alert"><%= notice %></div>
+  <% end %>
   <%= yield %>
 </div>
 </body>

@@ -50,7 +50,8 @@
             <%= form.radio_button :date_time, time[:time], class: "btn-check" %>
             <%= form.label "date_time_#{time[:time].to_s.gsub(' ', '_').gsub(/[:+]/, '').downcase}",
                            time[:time].strftime("%I:%M %p"),
-                           class: "g-col-6 g-col-sm-4 btn btn-outline-primary"
+                           class: "g-col-4 btn btn-outline-primary",
+                           "data-action": "click->appointment#enableBookButton"
             %>
           <% end %>
         </div>
@@ -59,11 +60,14 @@
   <% end %>
 </section>
 <!-- TODO: Add Validation -->
-<section class="my-5 py-5">
+<section class="py-3">
   <small class="d-block m-auto text-center">
     Due to high demand, it is difficult to reschedule appointments. Please book your slot carefully!
   </small>
-  <a class="mt-3 btn btn-lg btn-primary text-white w-100 p-3 rounded-3" data-action="click->appointment#showUserForm">
+  <a class="mt-3 btn btn-lg btn-info text-white w-100 p-3 rounded-3 disabled"
+     data-appointment-target="bookButton"
+     data-action="click->appointment#showUserForm"
+  >
     Book Appointment
   </a>
 </section>

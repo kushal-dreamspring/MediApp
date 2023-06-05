@@ -13,10 +13,10 @@
     </div>
   </div>
   <div class="row justify-content-between">
-    <div class="col-6 col-lg-7 d-flex flex-column justify-content-center">
-      <p class="text-success small mb-0">Next Available - </p>
+    <div class="col-7 d-flex flex-column justify-content-center">
+      <p class="small mb-0"><span class="text-success">Next Available</span> - <%= @next_appointment[doctor.id] %></p>
     </div>
-    <div class="col-6 col-lg-5">
+    <div class="col-5">
       <%= link_to "Book Visit", new_appointment_path(doctor_id: doctor), class: "btn btn-primary" %>
     </div>
   </div>

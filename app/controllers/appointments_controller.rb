@@ -3,7 +3,8 @@ class AppointmentsController < ApplicationController
 
   # GET /appointments or /appointments.json
   def index
-    @appointments = Appointment.all
+    user_id = session[:current_user_id]
+    @appointments = Appointment.where(user_id: user_id).all if user_id
   end
 
   # GET /appointments/1 or /appointments/1.json
@@ -58,6 +59,7 @@ class AppointmentsController < ApplicationController
   def create
     @user = User.find_by(email: user_params[:email])
     @user = User.create(user_params) if @user.nil?
+    session[:current_user_id] = @user.id
 
     @appointment = Appointment.new(**appointment_params,
                                    amount: CurrencyService.amount_in_currency(500, appointment_params[:currency]),
