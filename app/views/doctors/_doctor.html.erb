@@ -14,7 +14,9 @@
   </div>
   <div class="row justify-content-between">
     <div class="col-7 d-flex flex-column justify-content-center">
-      <p class="small mb-0"><span class="text-success">Next Available</span> - <%= @next_appointment[doctor.id] %></p>
+      <p class="small mb-0"><span class="text-success">Next Available</span> -
+        <%= @next_appointment[doctor.id].strftime(@next_appointment[doctor.id].today? ? "%I:%M %p" :"%b %d, %I:%M %p") %>
+      </p>
     </div>
     <div class="col-5">
       <%= link_to "Book Visit", new_appointment_path(doctor_id: doctor), class: "btn btn-primary" %>
