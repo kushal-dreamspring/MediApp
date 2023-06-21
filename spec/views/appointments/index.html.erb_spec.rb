@@ -21,6 +21,6 @@ RSpec.describe "appointments/index", type: :view do
   it "renders a list of appointments" do
     render
     cell_selector = '#appointment_1'
-    assert_select cell_selector, text: Regexp.new(nil.to_s), count: 1
+    assert_select cell_selector, text: /#{doctors(:two).name}/, count: 0
   end
 end
