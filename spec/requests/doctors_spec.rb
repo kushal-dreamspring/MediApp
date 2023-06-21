@@ -19,7 +19,11 @@ RSpec.describe "/doctors", type: :request do
   # adjust the attributes here as well.
   let(:valid_attributes) {
     { name: 'Batman',
-      image: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.iD-DLh5NRStUnPKSUq1IIQHaFf%26pid%3DApi&f=1&ipt=ee801bcb736c46dc3abe22650ad3841b2462ed1bee08832a8e861b7da5fe46b9&ipo=images'
+      image: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.iD-DLh5NRStUnPKSUq1IIQHaFf%26pid%3DApi&f=1&ipt=ee801bcb736c46dc3abe22650ad3841b2462ed1bee08832a8e861b7da5fe46b9&ipo=images',
+      address: 'Dummy Address',
+      start_time: '2000-01-01 09:00:00',
+      end_time: '2000-01-01 17:00:00',
+      lunch_time: '2000-01-01 13:00:00'
     }
   }
   #

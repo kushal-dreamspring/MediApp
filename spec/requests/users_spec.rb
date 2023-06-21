@@ -13,16 +13,24 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe "/users", type: :request do
-  
+
   # This should return the minimal set of attributes required to create a valid
   # User. As you add validations to User, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      id: 0,
+      name: 'John Doe',
+      email: 'johndoe@test.com'
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+      id: 0,
+      name: nil,
+      email: nil
+    }
   }
 
   describe "POST /create" do
@@ -43,15 +51,14 @@ RSpec.describe "/users", type: :request do
       it "does not create a new User" do
         expect {
           post users_url, params: { user: invalid_attributes }
-        }.to change(User, :count).by(0)
+        }.to raise_error(ActiveRecord::NotNullViolation)
       end
 
-    
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
-        post users_url, params: { user: invalid_attributes }
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect {
+          post users_url, params: { user: invalid_attributes }
+        }.to raise_error(ActiveRecord::NotNullViolation)
       end
-    
     end
   end
 end

@@ -32,3 +32,19 @@ doctors = Doctor.create([
                             lunch_time: '2000-01-01 14:30:00'
                           }
                         ])
+
+appointments = Appointment.create!([
+                                     {
+                                       doctor_id: 1,
+                                       user_id: 0,
+                                       date_time: '2000-01-01 09:00:00',
+                                       amount: 500,
+
+                                     },
+                                     {
+                                       doctor_id: 2,
+                                       user_id: 0,
+                                       date_time: '2000-01-01 09:00:00',
+                                       amount: 500
+                                     }
+                                   ])
