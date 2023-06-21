@@ -1,14 +1,14 @@
+# frozen_string_literal: true
+
 require "uri"
 require "net/http"
 
-module CurrencyService
+module CurrencyHelper
   def self.amount_in_currency(amount, currency)
     return amount if(currency == 'INR')
 
     amount * exchange_rates[currency]
   end
-
-  private
 
   def self.exchange_rates
 

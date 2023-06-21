@@ -10,6 +10,10 @@ require 'rails_helper'
 #     end
 #   end
 # end
-RSpec.describe AppointmentsHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+RSpec.describe CurrencyHelper, type: :helper do
+  it "gets currency exchange rates" do
+    exchange_rates = CurrencyHelper.exchange_rates
+    expect(exchange_rates["EUR"]).to be_a_kind_of(Numeric)
+    expect(exchange_rates["USD"]).to be_a_kind_of(Numeric)
+  end
 end

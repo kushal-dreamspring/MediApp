@@ -1,4 +1,5 @@
 class AppointmentsController < ApplicationController
+  helper CurrencyHelper
   before_action :set_appointment, only: %i[ show edit update destroy ]
 
   # GET /appointments or /appointments.json
@@ -62,7 +63,7 @@ class AppointmentsController < ApplicationController
     session[:current_user_id] = @user.id
 
     @appointment = Appointment.new(**appointment_params,
-                                   amount: CurrencyService.amount_in_currency(500, appointment_params[:currency]),
+                                   amount: CurrencyHelper.amount_in_currency(500, appointment_params[:currency]),
                                    user_id: @user.id)
 
     respond_to do |format|
