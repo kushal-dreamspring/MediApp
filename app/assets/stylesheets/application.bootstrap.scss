@@ -4,7 +4,7 @@
 @import "bootstrap/scss/variables";
 
 $enable-cssgrid: true;
-$gray-200: e8e8e8;
+$gray-200: #e8e8e8;
 $body-bg: #f9f9ff;
 $theme-colors: (
         "primary": #443eff,
@@ -20,14 +20,15 @@ $theme-colors: (
 
 $font-family-base: 'Inter', sans-serif;
 $font-size-base: 16px;
-$font-size-sm: 12px;
-$font-size-lg: 18px;
+$font-size-sm: $font-size-base * .75;
+$font-size-lg: $font-size-base * 1.125;
 $line-height-base: 1.5;
 $line-height-sm: 1.25;
 $line-height-lg: 2;
 
 $h5-font-size: $font-size-base * 1.125;
-$input-font-size-lg: 16px;
+$h6-font-size: $font-size-base * 0.875;
+$input-font-size-lg: $font-size-base;
 
 $btn-border-radius: 4px;
 $btn-font-size: 14px;
@@ -43,8 +44,14 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg viewBox='0 0 8 14' 
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
 
+.small {
+  font-size: $font-size-sm;
+}
+
 .navbar {
-  box-shadow: 0 4px 6px rgba(65, 52, 146, 0.06), 0 4px 12px rgba(65, 52, 146, 0.12);
+  @include media-breakpoint-up(md) {
+    box-shadow: 0 4px 6px rgba(65, 52, 146, 0.06), 0 4px 12px rgba(65, 52, 146, 0.12);
+  }
 }
 
 .navbar-brand {
@@ -59,7 +66,7 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg viewBox='0 0 8 14' 
 
 .doctor-card {
   padding: 10px;
-  border: 1px solid #E8E8E8;
+  border: 1px solid var(--grey-200, #E8E8E8);
   border-radius: 8px;
 }
 
@@ -68,44 +75,87 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg viewBox='0 0 8 14' 
   border-radius: 4px;
 }
 
+.carousel-inner {
+  width: 90%;
+}
+
 .carousel-item.active, .carousel-item-next, .carousel-item-prev {
   display: flex;
   justify-content: stretch;
 }
 
 .carousel::after {
-  content: " ";
-  display: block;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background-color: #d9d9d9;
-  z-index: -1;
+  @include media-breakpoint-up(md) {
+    content: " ";
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: #d9d9d9;
+    z-index: -1;
+  }
 }
 
 .date-item {
-  cursor: pointer;
-  height: 75px;
+  @include media-breakpoint-between(xs, md) {
+    border-radius: 0.5rem;
+    border: 1px solid var(--grey-200, #E8E8E8);
+    padding: 0.25rem 0.5rem;
+
+    .h5 {
+      font-size: 14px;
+    }
+    .h6 {
+      font-size: 12px;
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    cursor: pointer;
+    height: 75px;
+
+    .h5 {
+      font-size: 18px;
+    }
+    .h6 {
+      font-size: 16px;
+    }
+  }
 }
 
 .date-item.active {
-  &::after {
-    content: " ";
-    display: block;
-    position: relative;
-    bottom: -13px;
-    left: 0;
-    height: 8px;
-    background-color: #443eff;
-    border-radius: 3px 3px 0 0;
-    z-index: 2;
-  }
-
-  h5 {
+  .h5 {
     font-weight: bold;
   }
+
+  @include media-breakpoint-between(xs, md) {
+    border-color: var(--primary-300, #9895FF);
+    background: #EBEAFF;
+  }
+
+  @include media-breakpoint-up(md) {
+    &::after {
+      content: " ";
+      display: block;
+      position: relative;
+      bottom: -5px;
+      left: 0;
+      height: 8px;
+      background-color: #443eff;
+      border-radius: 3px 3px 0 0;
+      z-index: 2;
+    }
+  }
+}
+
+.slot-button + .btn {
+  background-color: var(--bs-white);
+}
+
+.slot-button:checked + .btn {
+  background-color: var(--bs-primary);
 }
 
 .appointment-form, .user-form {
@@ -143,6 +193,7 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg viewBox='0 0 8 14' 
 .btn-check:checked + .currency-select {
   font-weight: bold;
   background-color: #DBDEFF;
+  color: #2E1CFC;
   border: none;
 }
 
@@ -150,12 +201,37 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg viewBox='0 0 8 14' 
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 568px;
+  //width: 568px;
   height: 100vh;
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
+
+  .card {
+    @include media-breakpoint-between(xs, md) {
+      background: var(--bs-body-bg);
+      box-shadow: none !important;
+    }
+
+    @include media-breakpoint-up(md) {
+      width: 568px;
+    }
+
+    .fs-6 {
+      font-size: 14px;
+    }
+  }
+
+  .btn {
+    width: 90%;
+    max-width: 568px;
+    background-color: white;
+  }
+
+  .btn:hover {
+    background-color: var(--bs-primary);
+  }
 }
 
 .countdown {

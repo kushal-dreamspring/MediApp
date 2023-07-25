@@ -1,5 +1,5 @@
 <div class="success-page mx-auto">
-  <div class="card mx-auto p-3 border-0 shadow" style="width: 568px;">
+  <div class="card mx-auto p-3 border-0 shadow">
     <%= image_tag 'congrats.svg', class: "card-img-top m-auto", alt: "congrats", height: '45' %>
     <div class="card-body">
       <h4 class="h4 card-title mb-4 text-success text-center fw-bold">Congratulations</h4>
@@ -7,12 +7,12 @@
       <p class="card-text fs-4 fw-bold text-primary text-center">
         <%= render inline: (render file: Rails.root.join('app', 'assets', 'images', 'calendar-2.svg')) %>
         <span class="mx-2">
-          <%= 'Today, ' if appointment_time.to_date == Date.today %>
-          <%= 'Tomorrow, ' if appointment_time.to_date == Date.today + 1 %>
-          <%= appointment_time.to_datetime.strftime("%a, #{appointment_time.to_date.day.ordinalize} %I:%M %p") %>
+          <%= 'Today, ' if appointment_time.to_date.today? %>
+          <%= 'Tomorrow, ' if appointment_time.to_date.tomorrow? %>
+          <%= appointment_time.to_datetime.strftime("#{appointment_time.to_date.day.ordinalize} %B, %I:%M %p") %>
         </span>
       </p>
-      <p class="fs-6 text-center text-info">Meeting starts in</p>
+      <p class="fs-6 text-center">Meeting starts in</p>
       <div class="countdown d-flex justify-content-center" data-controller="countdown">
         <div class="d-none" data-countdown-target="time"><%= appointment_time.to_datetime %></div>
 
@@ -43,7 +43,7 @@
     </div>
   </div>
 
-  <%= link_to appointments_url, class: "btn btn-outline-primary w-100 my-5" do %>
+  <%= link_to appointments_url, class: "btn btn-outline-primary my-5 mx-auto" do %>
     My Appointments <%= image_tag "arrow.svg", alt: "arrow", size: '24', class: 'mx-2' %>
   <% end %>
 </div>

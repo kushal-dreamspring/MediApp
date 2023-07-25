@@ -10,22 +10,22 @@
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Previous</span>
     </button>
-    <div class="carousel-inner" role="tablist">
+    <div class="carousel-inner m-auto" role="tablist">
       <% @times.keys.each_slice(3).each_with_index do |date, i| %>
         <div class="carousel-item <%= i == 0 ? 'active' : '' %>">
           <% date.each do |d| %>
             <div
-              class="date-item w-100"
+              class="date-item w-100 mx-1 d-flex flex-column justify-content-center"
               data-bs-toggle="tab"
               data-bs-target="#nav-<%= d %>"
               type="button"
               role="tab">
-                  <span class="d-block h5 text-center">
-                    <%= 'Today, ' if d == Date.today %>
-                    <%= 'Tomorrow, ' if d == Date.today + 1 %>
-                    <%= d.strftime("%a, #{d.day.ordinalize}") %>
-                  </span>
-              <span class="d-block text-center text-secondary"><%= d.strftime("%b") %></span>
+              <span class="d-block h5 text-center">
+                <%= 'Today, ' if d.today? %>
+                <%= 'Tomorrow, ' if d.tomorrow? %>
+                <%= d.strftime("%a, #{d.day.ordinalize}") %>
+              </span>
+              <span class="d-block text-center text-secondary h6"><%= d.strftime("%b") %></span>
             </div>
           <% end %>
         </div>
@@ -47,10 +47,10 @@
         </h6>
         <div class="grid gap-2 my-5">
           <% slots.each do |time| %>
-            <%= form.radio_button :date_time, time[:time], class: "btn-check" %>
+            <%= form.radio_button :date_time, time[:time], class: "btn-check slot-button" %>
             <%= form.label "date_time_#{time[:time].to_s.gsub(' ', '_').gsub(/[:+]/, '').downcase}",
                            time[:time].strftime("%I:%M %p"),
-                           class: "g-col-4 btn btn-outline-primary",
+                           class: "g-col-4 btn btn-outline-primary px-1",
                            "data-action": "click->appointment#enableBookButton"
             %>
           <% end %>
