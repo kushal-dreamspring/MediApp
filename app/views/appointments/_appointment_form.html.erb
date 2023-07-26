@@ -13,9 +13,9 @@
     <div class="carousel-inner m-auto" role="tablist">
       <% @times.keys.each_slice(3).each_with_index do |date, i| %>
         <div class="carousel-item <%= i == 0 ? 'active' : '' %>">
-          <% date.each do |d| %>
+          <% date.each_with_index do |d, j| %>
             <div
-              class="date-item w-100 mx-1 d-flex flex-column justify-content-center"
+              class="date-item w-100 mx-1 d-flex flex-column justify-content-center <%= 'active' if i + j == 0 %>"
               data-bs-toggle="tab"
               data-bs-target="#nav-<%= d %>"
               type="button"
@@ -39,14 +39,16 @@
 </section>
 
 <section class="my-5">
-  <% @times.each do |date, slots| %>
+  <% @times.each_with_index do |(date, slots), i| %>
     <div class="tab-content">
-      <div id="nav-<%= date %>" class="tab-pane fade" role="tabpanel">
+      <div id="nav-<%= date %>" class="tab-pane fade <%= 'active show' if i == 0 %>" role="tabpanel">
         <h6 class="fw-semibold">
-          <%= image_tag 'clock.svg', class: 'mx-2' %> Select a time for <span class="text-primary"><%= date %></span>
+          <%= image_tag 'clock.svg', class: 'mx-2' %> Select a time for <span class="text-primary">
+          <%= date.strftime("%A, #{date.day.ordinalize} %B") %>
+        </span>
         </h6>
         <div class="grid gap-2 my-5">
-          <% slots.each do |time| %>
+          <% slots.each_with_index do |time, j| %>
             <%= form.radio_button :date_time, time[:time], class: "btn-check slot-button" %>
             <%= form.label "date_time_#{time[:time].to_s.gsub(' ', '_').gsub(/[:+]/, '').downcase}",
                            time[:time].strftime("%I:%M %p"),
@@ -59,7 +61,7 @@
     </div>
   <% end %>
 </section>
-<!-- TODO: Add Validation -->
+
 <section class="py-3">
   <small class="d-block m-auto text-center">
     Due to high demand, it is difficult to reschedule appointments. Please book your slot carefully!
