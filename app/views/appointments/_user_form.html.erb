@@ -11,7 +11,7 @@
 </div>
 
 <div class="grid gap-1 mb-3">
-  <h5 class="g-col-12 text-dark fw-semibold mb-3">Select Currency</h5>
+  <h5 class="g-col-12 text-dark fw-semibold mb-1">Select Currency</h5>
   <% %w[INR USD EUR].each_with_index do |c, i| %>
     <%= form.radio_button :currency, c, class: "btn-check", checked: i == 0 %>
     <%= form.label "currency_#{c.downcase}", c, class: "g-col-4 btn currency-select fs-6" %>

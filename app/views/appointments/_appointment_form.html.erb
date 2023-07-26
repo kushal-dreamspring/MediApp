@@ -1,9 +1,9 @@
 <%= form.hidden_field :doctor_id, value: params[:doctor_id] %>
 
 <section class="my-5">
-  <h6 class="fw-semibold lh-lg mb-3">
+  <h5 class="fw-semibold lh-lg mb-3">
     <%= image_tag 'calendar-2.svg', class: 'mx-2' %> Select a date
-  </h6>
+  </h5>
 
   <div id="dateCarousel" class="carousel slide">
     <button class="carousel-control-prev" type="button" data-bs-target="#dateCarousel" data-bs-slide="prev">
@@ -20,7 +20,7 @@
               data-bs-target="#nav-<%= d %>"
               type="button"
               role="tab">
-              <span class="d-block h5 text-center">
+              <span class="d-block h4 text-center">
                 <%= 'Today, ' if d.today? %>
                 <%= 'Tomorrow, ' if d.tomorrow? %>
                 <%= d.strftime("%a, #{d.day.ordinalize}") %>
@@ -42,12 +42,12 @@
   <% @times.each_with_index do |(date, slots), i| %>
     <div class="tab-content">
       <div id="nav-<%= date %>" class="tab-pane fade <%= 'active show' if i == 0 %>" role="tabpanel">
-        <h6 class="fw-semibold">
+        <h5 class="fw-semibold">
           <%= image_tag 'clock.svg', class: 'mx-2' %> Select a time for <span class="text-primary">
           <%= date.strftime("%A, #{date.day.ordinalize} %B") %>
         </span>
-        </h6>
-        <div class="grid gap-2 my-5">
+        </h5>
+        <div class="grid gap-2 my-3">
           <% slots.each_with_index do |time, j| %>
             <%= form.radio_button :date_time, time[:time], class: "btn-check slot-button" %>
             <%= form.label "date_time_#{time[:time].to_s.gsub(' ', '_').gsub(/[:+]/, '').downcase}",
