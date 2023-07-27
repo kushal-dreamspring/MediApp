@@ -1,6 +1,6 @@
 <h1 class="h1 text-center mb-3">Appointments</h1>
 
-<% if @appointments %>
+<% if @appointments && !@appointments.empty? %>
   <div id="appointments" class="grid gap-5">
     <% @appointments.each do |appointment| %>
       <%= render appointment %>
