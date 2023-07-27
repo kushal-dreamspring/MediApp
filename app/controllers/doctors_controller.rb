@@ -1,5 +1,6 @@
 class DoctorsController < ApplicationController
   before_action :set_doctor, only: %i[ show edit update destroy ]
+  include DateTimeUtilities
 
   # GET /doctors or /doctors.json
   def index
@@ -11,9 +12,9 @@ class DoctorsController < ApplicationController
       booked_appointments = Appointment.where(doctor_id: doctor.id).map { |ap| ap.date_time }
 
       dates.each do |date|
-        date_time = time_to_datetime(date, doctor.start_time)
-        lunch_date_time = time_to_datetime(date, doctor.lunch_time)
-        end_date_time = time_to_datetime(date, doctor.end_time)
+        date_time = combine_date_and_time(date, doctor.start_time)
+        lunch_date_time = combine_date_and_time(date, doctor.lunch_time)
+        end_date_time = combine_date_and_time(date, doctor.end_time)
 
         while (date_time < end_date_time) && (date_time < Time.now || date_time == lunch_date_time || booked_appointments.include?(date_time)) do
           date_time += 3600
@@ -39,10 +40,5 @@ class DoctorsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def doctor_params
     params.require(:doctor).permit(:name, :image, :start_time, :end_time, :lunch_time)
-  end
-
-  def time_to_datetime(date, time)
-    Time.zone = 'Kolkata'
-    Time.zone.at(Time.zone.at(date.to_datetime) - Time.zone.utc_offset + time - Time.zone.utc_offset - Time.zone.iso8601('2000-01-01T00:00:00'))
   end
 end
