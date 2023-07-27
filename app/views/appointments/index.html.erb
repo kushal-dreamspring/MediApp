@@ -1,4 +1,4 @@
-<h1 class="h1 text-center mb-3">Appointments</h1>
+<h1 class="h1 text-center mb-3"><%= t('appointments') %></h1>
 
 <% if @appointments && !@appointments.empty? %>
   <div id="appointments" class="grid gap-5">
@@ -7,5 +7,5 @@
     <% end %>
   </div>
 <% else %>
-  <h4 class="h4 text-center text-info mt-5">You have no appointments yet!!</h4>
+  <h4 class="h4 text-center text-info mt-5"><%= t('you_have_no_appointments_yet') %></h4>
 <% end %>

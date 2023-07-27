@@ -3,8 +3,8 @@
   You have successfully booked an appointment with
   <strong>Dr. <%= @appointment.doctor.name %></strong> for
   <strong>
-    <%= 'Today, ' if @appointment.date_time.to_date == Date.today %>
-    <%= 'Tomorrow, ' if @appointment.date_time.to_date == Date.today + 1 %>
+    <%= t('today') if @appointment.date_time.to_date == Date.today %>
+    <%= t('tomorrow') if @appointment.date_time.to_date == Date.today + 1 %>
     <%= @appointment.date_time.to_datetime.strftime("%a, #{@appointment.date_time.to_date.day.ordinalize} %I:%M %p") %>
   </strong>
 </p>

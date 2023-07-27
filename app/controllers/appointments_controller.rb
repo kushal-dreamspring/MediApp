@@ -80,18 +80,22 @@ class AppointmentsController < ApplicationController
       else
         puts @appointment.errors.full_messages
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @appointment.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # DELETE /appointments/1 or /appointments/1.json
   def destroy
-    @appointment.destroy
+    if @appointment.date_time - DateTime.now > 30.minutes
+      @appointment.destroy
 
-    respond_to do |format|
-      format.html { redirect_to appointments_url, notice: "Appointment was successfully destroyed." }
-      format.json { head :no_content }
+      respond_to do |format|
+        format.html { redirect_to appointments_url, notice: I18n.t('your_appointment_has_been_cancelled') }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to appointments_url, alert: I18n.t('you_can_not_cancel_this_appointment') }
+      end
     end
   end
 

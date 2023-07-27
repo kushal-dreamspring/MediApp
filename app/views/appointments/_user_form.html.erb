@@ -1,23 +1,23 @@
-<h4 class="h4 text-center fw-bold mb-3">Add Details 🧑🏻</h4>
+<h4 class="h4 text-center fw-bold mb-3"><%= t('add_details') %></h4>
 
 <div class="mb-3">
   <%= form.label :name, style: "display: block", class: "text-dark fw-semibold" %>
-  <%= form.text_field :name, class: "form-control form-control-lg", placeholder: "Enter Name" %>
+  <%= form.text_field :name, class: "form-control form-control-lg", placeholder: t('enter_name') %>
 </div>
 
 <div class="mb-3">
   <%= form.label :email, style: "display: block", class: "text-dark fw-semibold" %>
-  <%= form.text_field :email, type: :email, class: "form-control form-control-lg", placeholder: "Enter Email" %>
+  <%= form.email_field :email, type: :email, class: "form-control form-control-lg", placeholder: t('enter_email') %>
 </div>
 
 <div class="grid gap-1 mb-3">
-  <h5 class="g-col-12 text-dark fw-semibold">Select Currency</h5>
+  <h5 class="g-col-12 text-dark fw-semibold"><%= t('select_currency') %></h5>
   <% %w[INR USD EUR].each_with_index do |c, i| %>
     <%= form.radio_button :currency, c, class: "btn-check", checked: i == 0 %>
-    <%= form.label "currency_#{c.downcase}", c, class: "g-col-4 btn currency-select fs-6" %>
+    <%= form.label t('currency_downcase', downcase: c.downcase), c, class: "g-col-4 btn currency-select fs-6" %>
   <% end %>
 </div>
 
 <div class="mb-3">
-  <%= form.submit "Pay Now", class: "mt-3 btn btn-lg btn-primary text-white w-100 p-3 py-2 rounded-2" %>
+  <%= form.submit t('pay_now'), class: "mt-3 btn btn-lg btn-primary text-white w-100 p-3 py-2 rounded-2" %>
 </div>
