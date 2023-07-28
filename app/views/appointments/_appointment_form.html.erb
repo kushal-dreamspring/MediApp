@@ -2,7 +2,7 @@
 
 <section class="my-5">
   <h5 class="fw-semibold lh-lg mb-3">
-    <%= image_tag 'calendar-2.svg', class: 'mx-2' %> Select a date
+    <%= image_tag 'calendar-2.svg', class: 'mx-2', size: '25' %> Select a date
   </h5>
 
   <div id="dateCarousel" class="carousel slide">
@@ -42,8 +42,8 @@
   <% @times.each_with_index do |(date, slots), i| %>
     <div class="tab-content">
       <div id="nav-<%= date %>" class="tab-pane fade <%= 'active show' if i == 0 %>" role="tabpanel">
-        <h5 class="fw-semibold">
-          <%= image_tag 'clock.svg', class: 'mx-2' %> Select a time for <span class="text-primary">
+        <h5 class="fw-semibold mb-5">
+          <%= image_tag 'clock.svg', class: 'mx-2', size: '25' %> Select a time for <span class="text-primary">
           <%= date.strftime("%A, #{date.day.ordinalize} %B") %>
         </span>
         </h5>
