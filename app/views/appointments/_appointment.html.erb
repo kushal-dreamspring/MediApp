@@ -1,57 +1,59 @@
-<div id="<%= dom_id appointment %>" class="g-col-12 g-col-md-6 px-3 bg-white rounded-3 shadow">
-  <div class="row my-3 justify-content-between">
-    <div class="col-3">
-      <%= image_tag appointment.doctor.image, class: 'doctor-image', size: '75' %>
+<div id="<%= dom_id appointment %>" class="g-col-12 g-col-md-6">
+  <div class="bg-white rounded-3 shadow p-3">
+    <div class="row mb-3 justify-content-start">
+      <div class="col-3">
+        <%= image_tag appointment.doctor.image, class: 'doctor-image', size: '75' %>
+      </div>
+      <div class="col-8 d-flex flex-column justify-content-center">
+        <p class="fw-bold mb-0">
+          <%= appointment.doctor.name %>
+        </p>
+        <p class="text-secondary mb-0">
+          <%= appointment.doctor.address %>
+        </p>
+      </div>
     </div>
-    <div class="col-8 d-flex flex-column justify-content-center">
-      <p class="fw-bold mb-0">
-        <%= appointment.doctor.name %>
+    <h6 class="col-12 mb-3 text-secondary"><%= t('your_consultation_details') %></h6>
+    <div class="row mb-3 justify-content-center">
+      <p class="col-7 my-0 d-flex flex-row gap-1 justify-content-start align-items-center fw-semibold border border-0 border-end">
+        <%= image_tag 'calendar-2', size: '13' %>
+        <%= 'Today, ' if appointment.date_time.to_date == Date.today %>
+        <%= 'Tomorrow, ' if appointment.date_time.to_date == Date.today + 1 %>
+        <%= appointment.date_time.to_date.strftime("%a, #{appointment.date_time.to_date.day.ordinalize}") %>
       </p>
-      <p class="text-secondary mb-0">
-        <%= appointment.doctor.address %>
+      <p class="col-5 my-0 d-flex flex-row gap-3 justify-content-end align-items-center fw-semibold">
+        <%= image_tag 'clock', size: '13' %>
+        <%= appointment.date_time.to_time.strftime("%I:%M %p") %>
       </p>
     </div>
-  </div>
-  <p class="col-12 small text-secondary"><%= t('your_consultation_details') %></p>
-  <div class="row my-3 justify-content-center">
-    <p class="col-7 my-0 d-flex flex-row gap-3 justify-content-start align-items-center fw-semibold border border-0 border-end">
-      <%= image_tag 'calendar-2', size: '13' %>
-      <%= 'Today, ' if appointment.date_time.to_date == Date.today %>
-      <%= 'Tomorrow, ' if appointment.date_time.to_date == Date.today + 1 %>
-      <%= appointment.date_time.to_date.strftime("%a, #{appointment.date_time.to_date.day.ordinalize}") %>
-    </p>
-    <p class="col-5 my-0 d-flex flex-row gap-3 justify-content-end align-items-center fw-semibold">
-      <%= image_tag 'clock', size: '13' %>
-      <%= appointment.date_time.to_time.strftime("%I:%M %p") %>
-    </p>
-  </div>
-  <div class="row my-3 p-3 gap-3 justify-content-start">
-    <div class="col-12 p-0"><%= t('download_your_invoice') %></div>
-    <%= link_to 'CSV',
-                appointment_path(appointment, format: :csv),
-                class: "col-3 btn btn-dark py-1 px-0",
-                target: '_blank',
-                download: "appointment #{appointment.id}" %>
-    <%= link_to 'TXT',
-                appointment_path(appointment, format: :txt),
-                class: "col-3 btn btn-dark py-1 px-0",
-                target: '_blank',
-                download: "appointment #{appointment.id}" %>
-    <%= link_to 'PDF',
-                appointment_path(appointment, format: :pdf),
-                class: "col-3 btn btn-dark py-1 px-0",
-                target: '_blank',
-                download: "appointment #{appointment.id}" %>
-  </div>
+    <div class="row mb-3 p-3 gap-3 justify-content-start">
+      <div class="col-12 p-0"><%= t('download_your_invoice') %></div>
+      <%= link_to 'CSV',
+                  appointment_path(appointment, format: :csv),
+                  class: "col-3 btn btn-dark py-1 px-0",
+                  target: '_blank',
+                  download: "appointment #{appointment.id}" %>
+      <%= link_to 'TXT',
+                  appointment_path(appointment, format: :txt),
+                  class: "col-3 btn btn-dark py-1 px-0",
+                  target: '_blank',
+                  download: "appointment #{appointment.id}" %>
+      <%= link_to 'PDF',
+                  appointment_path(appointment, format: :pdf),
+                  class: "col-3 btn btn-dark py-1 px-0",
+                  target: '_blank',
+                  download: "appointment #{appointment.id}" %>
+    </div>
 
-  <div class="row mx-1 my-3 px-3 py-2 rounded-3 justify-content-between bg-light">
-    <p class="col-6 m-0"><%= t('amount_paid') %></p>
-    <p class="col-6 m-0 fw-bold text-primary"><%= appointment.currency %> <%= appointment.amount %>/-</p>
-  </div>
+    <div class="row mx-1 my-3 px-3 py-2 rounded-3 justify-content-between bg-light">
+      <p class="col-6 m-0 text-start"><%= t('amount_paid') %></p>
+      <p class="col-6 m-0 fw-bold text-primary text-end"><%= appointment.currency %> <%= appointment.amount %>/-</p>
+    </div>
 
-  <%= button_to t('cancel_appointment'),
-                appointment,
-                method: :delete,
-                class: 'w-100 mb-3 fw-bold text-uppercase btn btn-outline-danger'
-  %>
+    <%= button_to t('cancel_appointment'),
+                  appointment,
+                  method: :delete,
+                  class: 'w-100 mb-3 fw-bold text-uppercase btn btn-outline-danger'
+    %>
+  </div>
 </div>

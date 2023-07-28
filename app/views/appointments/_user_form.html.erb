@@ -1,17 +1,17 @@
 <h4 class="h4 text-center fw-bold mb-3"><%= t('add_details') %></h4>
 
 <div class="mb-3">
-  <%= form.label :name, style: "display: block", class: "text-dark fw-semibold" %>
+  <%= form.label :name, style: "display: block", class: "text-dark fw-semibold mb-1" %>
   <%= form.text_field :name, class: "form-control form-control-lg", placeholder: t('enter_name') %>
 </div>
 
 <div class="mb-3">
-  <%= form.label :email, style: "display: block", class: "text-dark fw-semibold" %>
+  <%= form.label :email, style: "display: block", class: "text-dark fw-semibold mb-1" %>
   <%= form.email_field :email, type: :email, class: "form-control form-control-lg", placeholder: t('enter_email') %>
 </div>
 
 <div class="grid gap-1 mb-3">
-  <h5 class="g-col-12 text-dark fw-semibold"><%= t('select_currency') %></h5>
+  <h5 class="g-col-12 text-dark fw-semibold mb-1"><%= t('select_currency') %></h5>
   <% %w[INR USD EUR].each_with_index do |c, i| %>
     <%= form.radio_button :currency, c, class: "btn-check", checked: i == 0 %>
     <%= form.label t('currency_downcase', downcase: c.downcase), c, class: "g-col-4 btn currency-select fs-6" %>

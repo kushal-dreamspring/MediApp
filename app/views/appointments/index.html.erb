@@ -1,7 +1,7 @@
-<h1 class="h1 text-center mb-3"><%= t('appointments') %></h1>
+<h3 class="h3 fw-bold lh-base text-center mb-4"><%= t('appointments') %></h3>
 
 <% if @appointments && !@appointments.empty? %>
-  <div id="appointments" class="grid gap-5">
+  <div id="appointments" class="grid mb-3">
     <% @appointments.each do |appointment| %>
       <%= render appointment %>
     <% end %>

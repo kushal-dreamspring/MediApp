@@ -1,31 +1,31 @@
 <%= form.hidden_field :doctor_id, value: params[:doctor_id] %>
 
 <section class="my-5">
-  <h6 class="fw-semibold">
-    <%= image_tag 'calendar-2.svg', class: 'mx-2' %> <%= t('select_a_date') %>
-  </h6>
+  <h5 class="fw-semibold lh-lg mb-3">
+    <%= image_tag 'calendar-2.svg', class: 'mx-2', size: '25' %> <%= t('select_a_date') %>
+  </h5>
 
   <div id="dateCarousel" class="carousel slide">
     <button class="carousel-control-prev" type="button" data-bs-target="#dateCarousel" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Previous</span>
     </button>
-    <div class="carousel-inner" role="tablist">
+    <div class="carousel-inner m-auto" role="tablist">
       <% @times.keys.each_slice(3).each_with_index do |date, i| %>
         <div class="carousel-item <%= i == 0 ? 'active' : '' %>">
           <% date.each_with_index do |d, j| %>
             <div
-              class="date-item w-100 <%= 'active' if i + j == 0 %>"
+              class="date-item w-100 mx-1 d-flex flex-column justify-content-center <%= 'active' if i + j == 0 %>"
               data-bs-toggle="tab"
               data-bs-target="#nav-<%= d %>"
               type="button"
               role="tab">
-                  <span class="d-block h5 text-center">
-                    <%= t('today') if d == Date.today %>
-                    <%= t('tomorrow') if d == Date.today + 1 %>
-                    <%= d.strftime("%a, #{d.day.ordinalize}") %>
-                  </span>
-              <span class="d-block text-center text-secondary"><%= d.strftime("%b") %></span>
+              <span class="d-block h4 text-center">
+                <%= t('today') if d.today? %>
+                <%= t('tomorrow') if d.tomorrow? %>
+                <%= d.strftime("%a, #{d.day.ordinalize}") %>
+              </span>
+              <span class="d-block text-center text-secondary h6"><%= d.strftime("%b") %></span>
             </div>
           <% end %>
         </div>
@@ -42,17 +42,18 @@
   <% @times.each_with_index do |(date, slots), i| %>
     <div class="tab-content">
       <div id="nav-<%= date %>" class="tab-pane fade <%= 'active show' if i == 0 %>" role="tabpanel">
-        <h6 class="fw-semibold">
-          <%= image_tag 'clock.svg', class: 'mx-2' %> <%= t('select_a_time_for') %> <span class="text-primary">
+        <h5 class="fw-semibold mb-5">
+          <%= image_tag 'clock.svg', class: 'mx-2', size: '25' %> <%= t('select_a_time_for') %>
+          <span class="text-primary">
           <%= date.strftime("%A, #{date.day.ordinalize} %B") %>
         </span>
-        </h6>
-        <div class="grid gap-2 my-5">
+        </h5>
+        <div class="grid gap-2 my-3">
           <% slots.each_with_index do |time, j| %>
-            <%= form.radio_button :date_time, time[:time], class: "btn-check" %>
+            <%= form.radio_button :date_time, time[:time], class: "btn-check slot-button" %>
             <%= form.label "date_time_#{time[:time].to_s.gsub(' ', '_').gsub(/[:+]/, '').downcase}",
                            time[:time].strftime("%I:%M %p"),
-                           class: "g-col-4 btn btn-outline-primary",
+                           class: "g-col-4 btn btn-outline-primary px-1",
                            "data-action": "click->appointment#enableBookButton"
             %>
           <% end %>
