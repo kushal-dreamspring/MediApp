@@ -1,8 +1,8 @@
 <nav class="navbar bg-body-tertiary p-2">
-  <div class="container justify-content-start gap-2">
-    <%= link_to "MediApp", root_path, class: "navbar-brand" %>
-    <div class="vr"></div>
-    <ul class="navbar-nav">
+  <div class="container justify-content-between justify-content-md-start gap-2 px-3 px-md-5">
+    <%= link_to "Medi App", root_path, class: "navbar-brand" %>
+    <div class="vr opacity-100 mx-2 d-none d-md-block"></div>
+    <ul class="navbar-nav ms-3">
       <li class="nav-item">
         <%= link_to appointments_path, class: "nav-link active" do %>
           <%= image_tag 'calendar.svg' %>

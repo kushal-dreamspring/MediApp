@@ -1,24 +1,24 @@
 <div id="<%= dom_id doctor %>" class="g-col-12 g-col-md-6 doctor-card bg-white">
   <div class="row mb-3">
-    <div class="col-3">
-      <%= image_tag doctor.image, class: 'doctor-image', size: '75' %>
+    <div class="col-3 mx-auto px-auto">
+      <%= image_tag doctor.image, class: 'doctor-image mx-auto', size: '75' %>
     </div>
-    <div class="col-9 d-flex flex-column justify-content-center">
-      <p class="fw-bold mb-0">
+    <div class="col-9 d-flex flex-column justify-content-center px-0">
+      <p class="fw-bold mb-2">
         <%= doctor.name %>
       </p>
-      <p class="text-secondary mb-0">
+      <h6 class="text-secondary mb-0">
         <%= doctor.address %>
-      </p>
+      </h6>
     </div>
   </div>
   <div class="row justify-content-between">
-    <div class="col-7 d-flex flex-column justify-content-center">
-      <p class="small mb-0"><span class="text-success">Next Available</span> -
+    <div class="col-6 col-md-7 pe-0 d-flex flex-column justify-content-center">
+      <p class="small mb-0"><span class="text-success fw-semibold">Next Available</span> -
         <%= @next_appointment[doctor.id].strftime(@next_appointment[doctor.id].today? ? "%I:%M %p" :"%b %d, %I:%M %p") %>
       </p>
     </div>
-    <div class="col-5">
+    <div class="col-6 col-md-5">
       <%= link_to "Book Visit", new_appointment_path(doctor_id: doctor), class: "btn btn-primary" %>
     </div>
   </div>
