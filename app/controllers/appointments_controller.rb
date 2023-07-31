@@ -71,6 +71,9 @@ class AppointmentsController < ApplicationController
           .invoice_email.deliver_later(wait_until: @appointment.date_time + 2.hours)
 
         format.turbo_stream {
+          fake_service = FakeService.new
+          fake_service.perform
+
           render turbo_stream: turbo_stream.replace(
             :new_appointment,
             partial: 'appointments/appointment_success',
