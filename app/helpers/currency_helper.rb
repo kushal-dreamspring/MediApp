@@ -20,7 +20,7 @@ module CurrencyHelper
 
     http = Net::HTTP.new(url.host, url.port)
     request = Net::HTTP::Get.new(url)
-    request["apikey"] = ENV['FIXER_API_KEY']
+    request["apikey"] = Rails.application.credentials.fixer['api_key']
 
     response = JSON.parse(http.request(request).body)
 
