@@ -70,16 +70,9 @@ class AppointmentsController < ApplicationController
           .with(appointment_id: @appointment.id, pdf: appointment_url(@appointment, format: :pdf))
           .invoice_email.deliver_later(wait_until: @appointment.date_time + 2.hours)
 
-        format.turbo_stream {
-          fake_service = FakeService.new
-          fake_service.perform
-
-          render turbo_stream: turbo_stream.replace(
-            :new_appointment,
-            partial: 'appointments/appointment_success',
-            locals: { appointment_time: @appointment.date_time }
-          )
-        }
+        format.turbo_stream do
+          FakeServiceJob.set(wait: 1.second).perform_later(@appointment)
+        end
       else
         puts @appointment.errors.full_messages
         format.html { render :new, status: :unprocessable_entity }
