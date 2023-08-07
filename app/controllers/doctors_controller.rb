@@ -17,7 +17,7 @@ class DoctorsController < ApplicationController
         end_date_time = combine_date_and_time(date, doctor.end_time)
 
         while (date_time < end_date_time) && (date_time < Time.now || date_time == lunch_date_time || booked_appointments.include?(date_time)) do
-          date_time += 3600
+          date_time += 1.hours
         end
 
         if date_time < end_date_time
