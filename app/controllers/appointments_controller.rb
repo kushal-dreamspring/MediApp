@@ -15,6 +15,7 @@ class AppointmentsController < ApplicationController
 
     respond_to do |format|
       format.csv
+      format.html
       format.pdf do
         render layout: 'application',
                pdf: "Appointment No. #{@appointment.id}",
@@ -67,7 +68,7 @@ class AppointmentsController < ApplicationController
     respond_to do |format|
       if @appointment.save
         InvoiceMailer
-          .with(appointment_id: @appointment.id, pdf: appointment_url(@appointment, format: :pdf))
+          .with(appointment_id: @appointment.id, url: appointment_url(@appointment))
           .invoice_email.deliver_later(wait_until: @appointment.date_time + 2.hours)
 
         format.turbo_stream {

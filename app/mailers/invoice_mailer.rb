@@ -3,7 +3,7 @@ class InvoiceMailer < ApplicationMailer
 
   def invoice_email
     @appointment = Appointment.find_by(id: params[:appointment_id])
-    @url  = params[:pdf]
+    @url = params[:url]
 
     return unless @appointment
 
