@@ -1,4 +1,4 @@
-<%= form_with(model: @appointment) do |form| %>
+<%= form_with(model: @appointment, html: { "data-action": "submit->appointment#showLoader" }) do |form| %>
   <% if @appointment.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(@appointment.errors.count, "error") %> <%= t('prohibited_this_appointment_from_being_saved') %></h2>
