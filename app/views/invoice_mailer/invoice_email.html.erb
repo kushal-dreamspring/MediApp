@@ -8,7 +8,7 @@
     <%= @appointment.date_time.to_datetime.strftime("%a, #{@appointment.date_time.to_date.day.ordinalize} %I:%M %p") %>
   </strong>
 </p>
-<p><%= t('the_total_cost_of_the_appointment_was') %> <strong><%= @appointment.currency + ' ' + @appointment.amount %></strong></p>
+<p><%= t('the_total_cost_of_the_appointment_was') %> <strong><%= @appointment.currency + ' ' + @appointment.amount.to_s %></strong></p>
 <p>
   <%= t('to_get_your_invoice_or_to_cancel_the_appointment_j') %>
   <a href="<%= @url %>" target="_blank" referrerpolicy="no-referrer"><%= @url %></a>.

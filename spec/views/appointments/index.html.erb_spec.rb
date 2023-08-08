@@ -8,12 +8,12 @@ RSpec.describe "appointments/index", type: :view do
       Appointment.create!(
         doctor: doctors(:one),
         user: users(:zero),
-        date_time: DateTime.now
+        date_time: DateTime.now + 1.hour
       ),
       Appointment.create!(
         doctor: doctors(:two),
         user: users(:zero),
-        date_time: DateTime.now
+        date_time: DateTime.now + 2.hour
       )
     ])
   end

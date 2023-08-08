@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe InvoiceMailer, type: :mailer do
   fixtures :appointments
 
-  let(:mail) { InvoiceMailer.with(appointment_id: appointments(:one).id, pdf: 'https://mediapp.com/appointments/1.pdf').invoice_email }
+  let(:mail) { InvoiceMailer.with(appointment_id: appointments(:one).id, url: 'https://mediapp.com/appointments/1').invoice_email }
 
   it 'renders the headers' do
     expect(mail.subject).to eq('MediApp: Thanks for booking an appointment with us')
