@@ -65,3 +65,7 @@ en:
   you_can_not_cancel_this_appointment: "You can not cancel this appointment."
   today: "Today, "
   tomorrow: "Tomorrow, "
+  login: "Login"
+  user_was_successfully_logged_in: "User was successfully logged in"
+  the_entered_user_has_no_appointments_with_us: "The entered user has no appointments with us"
+  login_to_view_your_appointments: "Login to view your appointments"

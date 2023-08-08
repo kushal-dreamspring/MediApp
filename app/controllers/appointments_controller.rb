@@ -6,7 +6,11 @@ class AppointmentsController < ApplicationController
   # GET /appointments or /appointments.json
   def index
     user_id = session[:current_user_id]
-    @appointments = Appointment.where(user_id: user_id).all if user_id
+    if user_id
+      @appointments = Appointment.where(user_id: user_id).all
+    else
+      redirect_to login_url, notice: I18n.t('login_to_view_your_appointments')
+    end
   end
 
   # GET /appointments/1 or /appointments/1.json
@@ -20,7 +24,7 @@ class AppointmentsController < ApplicationController
         render layout: 'application',
                pdf: "Appointment No. #{@appointment.id}",
                page_size: 'A5',
-               orientation: "Landscape",
+               orientation: 'Landscape',
                zoom: 1,
                dpi: 75,
                locals: { appointment: @appointment }
