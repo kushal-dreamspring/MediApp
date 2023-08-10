@@ -1,6 +1,7 @@
 class AppointmentsController < ApplicationController
   helper CurrencyHelper
   before_action :set_appointment, only: %i[ show edit update destroy ]
+  include DateTimeUtilities
 
   # GET /appointments or /appointments.json
   def index
@@ -34,22 +35,19 @@ class AppointmentsController < ApplicationController
 
     dates = (0..6).map { |i| Date.today + i }
     doctor = Doctor.find(params[:doctor_id])
-    booked_appointments = Appointment.where(doctor_id: params[:doctor_id]).map { |ap| ap.date_time }
+    booked_appointments = Appointment.where(doctor_id: params[:doctor_id]).map { |ap| ap.date_time.to_datetime }
 
     dates.each do |date|
       @times[date] = []
 
-      date_time = time_to_datetime(date, doctor.start_time)
-      lunch_date_time = time_to_datetime(date, doctor.lunch_time)
-      end_date_time = time_to_datetime(date, doctor.end_time)
+      date_time = combine_date_and_time(date, doctor.start_time)
+      lunch_date_time = combine_date_and_time(date, doctor.lunch_time)
+      end_date_time = combine_date_and_time(date, doctor.end_time)
 
       while date_time < end_date_time do
-        if date_time < Time.now || date_time == lunch_date_time || booked_appointments.include?(date_time)
-          date_time += 3600
-          next
-        end
-        @times[date].push({ time: date_time })
-        date_time += 3600
+        @times[date].push({ time: date_time }) if (date_time > DateTime.now && date_time != lunch_date_time && !booked_appointments.include?(date_time))
+
+        date_time += 1.hours
       end
 
       @times.delete(date) if @times[date].empty?
@@ -72,31 +70,28 @@ class AppointmentsController < ApplicationController
           .with(appointment_id: @appointment.id, pdf: appointment_url(@appointment, format: :pdf))
           .invoice_email.deliver_later(wait_until: @appointment.date_time + 2.hours)
 
-        format.turbo_stream {
-          fake_service = FakeService.new
-          fake_service.perform
-
-          render turbo_stream: turbo_stream.replace(
-            :new_appointment,
-            partial: 'appointments/appointment_success',
-            locals: { appointment_time: @appointment.date_time }
-          )
-        }
+        format.turbo_stream do
+          FakeServiceJob.set(wait: 1.second).perform_later(@appointment)
+        end
       else
         puts @appointment.errors.full_messages
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @appointment.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # DELETE /appointments/1 or /appointments/1.json
   def destroy
-    @appointment.destroy
+    if @appointment.date_time - DateTime.now > 30.minutes
+      @appointment.destroy
 
-    respond_to do |format|
-      format.html { redirect_to appointments_url, notice: "Appointment was successfully destroyed." }
-      format.json { head :no_content }
+      respond_to do |format|
+        format.html { redirect_to appointments_url, notice: I18n.t('your_appointment_has_been_cancelled') }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to appointments_url, alert: I18n.t('you_can_not_cancel_this_appointment') }
+      end
     end
   end
 
@@ -114,10 +109,5 @@ class AppointmentsController < ApplicationController
 
   def user_params
     params.require(:appointment).permit(:name, :email)
-  end
-
-  def time_to_datetime(date, time)
-    Time.zone = 'Kolkata'
-    Time.zone.at(Time.zone.at(date.to_datetime) - Time.zone.utc_offset + time - Time.zone.utc_offset - Time.zone.iso8601('2000-01-01T00:00:00'))
   end
 end

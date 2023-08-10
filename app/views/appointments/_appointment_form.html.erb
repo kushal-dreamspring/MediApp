@@ -2,7 +2,7 @@
 
 <section class="my-5">
   <h5 class="fw-semibold lh-lg mb-3">
-    <%= image_tag 'calendar-2.svg', class: 'mx-2', size: '25' %> Select a date
+    <%= image_tag 'calendar-2.svg', class: 'mx-2', size: '25' %> <%= t('select_a_date') %>
   </h5>
 
   <div id="dateCarousel" class="carousel slide">
@@ -21,8 +21,8 @@
               type="button"
               role="tab">
               <span class="d-block h4 text-center">
-                <%= 'Today, ' if d.today? %>
-                <%= 'Tomorrow, ' if d.tomorrow? %>
+                <%= t('today') if d.today? %>
+                <%= t('tomorrow') if d.tomorrow? %>
                 <%= d.strftime("%a, #{d.day.ordinalize}") %>
               </span>
               <span class="d-block text-center text-secondary h6"><%= d.strftime("%b") %></span>
@@ -43,7 +43,8 @@
     <div class="tab-content">
       <div id="nav-<%= date %>" class="tab-pane fade <%= 'active show' if i == 0 %>" role="tabpanel">
         <h5 class="fw-semibold mb-5">
-          <%= image_tag 'clock.svg', class: 'mx-2', size: '25' %> Select a time for <span class="text-primary">
+          <%= image_tag 'clock.svg', class: 'mx-2', size: '25' %> <%= t('select_a_time_for') %>
+          <span class="text-primary">
           <%= date.strftime("%A, #{date.day.ordinalize} %B") %>
         </span>
         </h5>
@@ -64,12 +65,12 @@
 
 <section class="py-3">
   <small class="d-block m-auto text-center">
-    Due to high demand, it is difficult to reschedule appointments. Please book your slot carefully!
+    <%= t('due_to_high_demand_it_is_difficult_to_reschedule_a') %>
   </small>
   <a class="mt-3 btn btn-lg btn-info text-white w-100 p-3 rounded-3 disabled"
      data-appointment-target="bookButton"
      data-action="click->appointment#showUserForm"
   >
-    Book Appointment
+    <%= t('book_appointment') %>
   </a>
 </section>

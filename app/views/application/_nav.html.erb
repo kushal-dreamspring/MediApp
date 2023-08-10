@@ -1,12 +1,12 @@
 <nav class="navbar bg-body-tertiary p-2">
   <div class="container justify-content-between justify-content-md-start gap-2 px-3 px-md-5">
-    <%= link_to "Medi App", root_path, class: "navbar-brand" %>
+    <%= link_to t('medi_app'), root_path, class: "navbar-brand" %>
     <div class="vr opacity-100 mx-2 d-none d-md-block"></div>
     <ul class="navbar-nav ms-3">
       <li class="nav-item">
         <%= link_to appointments_path, class: "nav-link active" do %>
           <%= image_tag 'calendar.svg' %>
-          <span class="px-2">My Appointments</span>
+          <span class="px-2"><%= t('my_appointments') %></span>
         <% end %>
       </li>
     </ul>

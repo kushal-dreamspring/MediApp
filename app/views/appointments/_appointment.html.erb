@@ -13,7 +13,7 @@
         </p>
       </div>
     </div>
-    <h6 class="col-12 mb-3 text-secondary">🗓 Your Consultation Details</h6>
+    <h6 class="col-12 mb-3 text-secondary"><%= t('your_consultation_details') %></h6>
     <div class="row mb-3 justify-content-center">
       <p class="col-7 my-0 d-flex flex-row gap-1 justify-content-start align-items-center fw-semibold border border-0 border-end">
         <%= image_tag 'calendar-2', size: '13' %>
@@ -27,7 +27,7 @@
       </p>
     </div>
     <div class="row mb-3 p-3 gap-3 justify-content-start">
-      <div class="col-12 p-0">Download your Invoice</div>
+      <div class="col-12 p-0"><%= t('download_your_invoice') %></div>
       <%= link_to 'CSV',
                   appointment_path(appointment, format: :csv),
                   class: "col-3 btn btn-dark py-1 px-0",
@@ -46,11 +46,11 @@
     </div>
 
     <div class="row mx-1 my-3 px-3 py-2 rounded-3 justify-content-between bg-light">
-      <p class="col-6 m-0 text-start">Amount Paid</p>
+      <p class="col-6 m-0 text-start"><%= t('amount_paid') %></p>
       <p class="col-6 m-0 fw-bold text-primary text-end"><%= appointment.currency %> <%= appointment.amount %>/-</p>
     </div>
 
-    <%= button_to "Cancel Appointment",
+    <%= button_to t('cancel_appointment'),
                   appointment,
                   method: :delete,
                   class: 'w-100 mb-3 fw-bold text-uppercase btn btn-outline-danger'
