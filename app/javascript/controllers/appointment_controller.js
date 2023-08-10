@@ -18,7 +18,6 @@ export default class extends Controller {
     }
 
     showLoader() {
-        console.log(this.payButtonTarget)
         this.payButtonTarget.innerHTML = `
 <div class="spinner-border text-light" role="status">
   <span class="visually-hidden">Loading...</span>
