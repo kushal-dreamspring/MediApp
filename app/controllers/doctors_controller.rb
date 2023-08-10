@@ -9,7 +9,7 @@ class DoctorsController < ApplicationController
 
     @doctors.each do |doctor|
       dates = (0..6).map { |i| Date.today + i }
-      booked_appointments = Appointment.where(doctor_id: doctor.id).map { |ap| ap.date_time }
+      booked_appointments = Appointment.where(doctor_id: doctor.id).map(&:date_time)
 
       dates.each do |date|
         date_time = combine_date_and_time(date, doctor.start_time)
