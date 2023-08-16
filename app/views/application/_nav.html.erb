@@ -4,8 +4,8 @@
     <div class="vr opacity-100 mx-2 d-none d-md-block"></div>
     <ul class="navbar-nav ms-3">
       <li class="nav-item">
-        <%= link_to appointments_path, class: "nav-link active" do %>
-          <%= image_tag 'calendar.svg' %>
+        <%= link_to appointments_path, class: current_page?(appointments_path) ? "nav-link active" : "nav-link" do %>
+          <%= render inline: (render file: Rails.root.join('app', 'assets', 'images', 'calendar.svg')) %>
           <span class="px-2"><%= t('my_appointments') %></span>
         <% end %>
       </li>
