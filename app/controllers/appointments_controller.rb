@@ -1,6 +1,6 @@
 class AppointmentsController < ApplicationController
   helper CurrencyHelper
-  before_action :set_appointment, only: %i[ show edit update destroy ]
+  before_action :set_appointment, :authorize_user, only: %i[show destroy]
   include DateTimeUtilities
 
   # GET /appointments or /appointments.json
@@ -15,8 +15,6 @@ class AppointmentsController < ApplicationController
 
   # GET /appointments/1 or /appointments/1.json
   def show
-    @appointment = Appointment.all.find(params[:id])
-
     respond_to do |format|
       format.csv
       format.html
@@ -104,7 +102,15 @@ class AppointmentsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_appointment
-    @appointment = Appointment.find(params[:id])
+    @appointment = Appointment.find_by(id: params[:id])
+
+    redirect_to appointments_url, alert: 'Appointment not found. Redirecting to your appointments' if @appointment.nil?
+  end
+
+  def authorize_user
+    return unless @appointment.user.id != session[:current_user_id]
+
+    redirect_to appointments_url, alert: 'You are not authorised to this URL. Redirecting to your appointments'
   end
 
   # Only allow a list of trusted parameters through.
