@@ -1,7 +1,7 @@
 import {Controller} from "@hotwired/stimulus"
 
 export default class extends Controller {
-    static targets = ["appointmentForm", "userForm", "bookButton", "payButton"]
+    static targets = ["appointmentForm", "userForm", "paymentPage", "bookButton", "payButton"]
 
     connect() {
         this.appointmentFormTarget.classList.add('active')
@@ -18,10 +18,7 @@ export default class extends Controller {
     }
 
     showLoader() {
-        console.log(this.payButtonTarget)
-        this.payButtonTarget.innerHTML = `
-<div class="spinner-border text-light" role="status">
-  <span class="visually-hidden">Loading...</span>
-</div>`
+        this.userFormTarget.classList.remove('active')
+        this.paymentPageTarget.classList.add('active')
     }
 }

@@ -160,7 +160,7 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg viewBox='0 0 8 14' 
   background-color: var(--bs-primary);
 }
 
-.appointment-form, .user-form {
+.appointment-form, .user-form, .payment-page {
   display: none;
 }
 
@@ -168,7 +168,7 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg viewBox='0 0 8 14' 
   display: block;
 }
 
-.user-form.active {
+.user-form.active, .payment-page.active {
   display: flex;
   flex-direction: column;
   justify-content: center;

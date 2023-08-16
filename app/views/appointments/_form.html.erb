@@ -18,4 +18,7 @@
   <div data-appointment-target="userForm" class="user-form mx-auto">
     <%= render partial: 'appointments/user_form', locals: { form: form } %>
   </div>
+  <div data-appointment-target="paymentPage" class="payment-page mx-auto">
+    <%= render partial: 'appointments/loader', locals: { form: form } %>
+  </div>
 <% end %>
