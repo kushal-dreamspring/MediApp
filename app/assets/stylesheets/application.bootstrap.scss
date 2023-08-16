@@ -38,6 +38,10 @@ $btn-padding-x: 32px;
 $btn-padding-y: 12px;
 
 $navbar-brand-height: 28px;
+$navbar-light-color: #000;
+$navbar-light-active-color: #443EFF;
+$navbar-light-hover-color: #443EFF;
+
 $carousel-control-color: #0a0926;
 $carousel-control-width: 12px;
 $carousel-control-prev-icon-bg: url("data:image/svg+xml,<svg viewBox='0 0 8 14' fill='none' xmlns='http://www.w3.org/2000/svg'> <path d='M7 1L1 7L7 13' stroke='#{$carousel-control-color}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/> </svg>");
@@ -142,7 +146,7 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg viewBox='0 0 8 14' 
       content: " ";
       display: block;
       position: relative;
-      bottom: -5px;
+      bottom: -10px;
       left: 0;
       height: 8px;
       background-color: #443eff;
@@ -175,7 +179,7 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg viewBox='0 0 8 14' 
   width: 328px;
   height: 75vh;
   position: absolute;
-  top: 0;
+  top: 56px;
   left: 0;
   right: 0;
 }
@@ -203,9 +207,8 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg viewBox='0 0 8 14' 
   display: flex;
   flex-direction: column;
   justify-content: center;
-  //width: 568px;
-  height: 100vh;
   position: absolute;
+  top: 56px;
   bottom: 0;
   left: 0;
   right: 0;
