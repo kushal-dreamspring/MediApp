@@ -3,7 +3,7 @@
     <div class="col-3 mx-auto px-auto">
       <%= image_tag doctor.image, class: 'doctor-image mx-auto', size: '75' %>
     </div>
-    <div class="col-9 d-flex flex-column justify-content-center px-0">
+    <div class="col-9 d-flex flex-column justify-content-center px-3 px-md-0">
       <p class="fw-bold mb-2">
         <%= doctor.name %>
       </p>
@@ -18,7 +18,7 @@
         <%= @next_appointment[doctor.id].strftime(@next_appointment[doctor.id].today? ? "%I:%M %p" :"%b %d, %I:%M %p") %>
       </p>
     </div>
-    <div class="col-6 col-md-5">
+    <div class="col-6 col-md-5 d-flex justify-content-end">
       <%= link_to t('book_visit'), new_appointment_path(doctor_id: doctor), class: "btn btn-primary" %>
     </div>
   </div>
