@@ -80,7 +80,7 @@ class AppointmentsController < ApplicationController
         end
       else
         puts @appointment.errors.full_messages
-        format.html { redirect_to new_appointment_url, status: :unprocessable_entity }
+        format.html { redirect_to new_appointment_url, status: :unprocessable_entity, alert: @appointment.errors.messages[:date_time][0] }
       end
     end
   end
