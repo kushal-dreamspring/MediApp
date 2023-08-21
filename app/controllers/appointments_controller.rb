@@ -1,5 +1,12 @@
+# frozen_string_literal: true
+
+require_relative '../services/currency_service'
+require_relative './concerns/session_logic'
+
 class AppointmentsController < ApplicationController
-  helper CurrencyHelper
+  include SessionLogic
+  include CurrencyService
+
   before_action :set_appointment, :authorize_user, only: %i[show destroy]
 
   APPOINTMENT_PRICE_IN_INR = 500
@@ -9,9 +16,8 @@ class AppointmentsController < ApplicationController
 
   # GET /appointments or /appointments.json
   def index
-    user_id = session[:current_user_id]
-    if user_id
-      @appointments = Appointment.where(user_id:).all
+    if current_user_id
+      @appointments = User.find_by_id(current_user_id).appointments
     else
       redirect_to login_url, notice: I18n.t('login_to_view_your_appointments')
     end
