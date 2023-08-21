@@ -16,7 +16,7 @@ module AppointmentsHelper
                     (appointment_date.today? ? 'Today, ' : '') +
                     (appointment_date.tomorrow? ? 'Tomorrow, ' : '') + "#{appointment_date.day.ordinalize} %B, %I:%M %p"
                   when 5
-                    "%a, #{@appointment.date_time.to_date.day.ordinalize} %b %Y"
+                    "%a, #{appointment_date.day.ordinalize} %b %Y"
                   else
                     (appointment_date.today? ? 'Today, ' : '') +
                     (appointment_date.tomorrow? ? 'Tomorrow, ' : '') + "%a, #{appointment_date.day.ordinalize}"
