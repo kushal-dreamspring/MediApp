@@ -21,9 +21,7 @@
               type="button"
               role="tab">
               <span class="d-block h5 text-center">
-                <%= t('today') if d.today? %>
-                <%= t('tomorrow') if d.tomorrow? %>
-                <%= d.strftime("%a, #{d.day.ordinalize}") %>
+                <%= print_appointment_date(d, display_format = 0) %>
               </span>
               <span class="d-block text-center text-secondary small"><%= d.strftime("%b") %></span>
             </div>
@@ -45,14 +43,14 @@
         <h5 class="fw-semibold mb-0 mb-md-3">
           <%= image_tag 'clock.svg', class: 'mx-2', size: '25' %> <%= t('select_a_time_for') %>
           <span class="text-primary">
-          <%= date.strftime("%A, #{date.day.ordinalize} %B") %>
+          <%= print_appointment_date(date, display_format = 1) %>
         </span>
         </h5>
         <div class="grid gap-2 my-3 ms-5 ms-md-1">
-          <% slots.each_with_index do |time, j| %>
-            <%= form.radio_button :date_time, time[:time], class: "btn-check slot-button" %>
-            <%= form.label "date_time_#{time[:time].to_s.gsub(' ', '_').gsub(/[:+]/, '').downcase}",
-                           time[:time].strftime("%I:%M %p"),
+          <% slots.each do |time| %>
+            <%= form.radio_button :date_time, time, class: "btn-check slot-button" %>
+            <%= form.label "date_time_#{time.to_s.gsub(' ', '_').gsub(/[:+]/, '').downcase}",
+                           print_appointment_date(time, display_format = 3),
                            class: "g-col-4 btn btn-outline-primary px-1 rounded-3",
                            "data-action": "click->appointment#enableBookButton"
             %>

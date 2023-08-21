@@ -17,13 +17,11 @@
     <div class="row mb-3 justify-content-center">
       <p class="col-7 my-0 d-flex flex-row gap-1 justify-content-start align-items-center fw-semibold border border-0 border-end">
         <%= image_tag 'calendar-2', size: '13' %>
-        <%= 'Today, ' if appointment.date_time.to_date == Date.today %>
-        <%= 'Tomorrow, ' if appointment.date_time.to_date == Date.today + 1 %>
-        <%= appointment.date_time.to_date.strftime("%a, #{appointment.date_time.to_date.day.ordinalize}") %>
+        <%= print_appointment_date(appointment.date_time.to_date, display_format = 2) %>
       </p>
       <p class="col-5 my-0 d-flex flex-row gap-3 justify-content-end align-items-center fw-semibold">
         <%= image_tag 'clock', size: '13' %>
-        <%= appointment.date_time.to_time.strftime("%I:%M %p") %>
+        <%= print_appointment_date(appointment.date_time, display_format = 3) %>
       </p>
     </div>
     <div class="row mb-3 p-3 gap-3 justify-content-start">
@@ -47,15 +45,9 @@
 
     <div class="row mx-1 my-3 px-3 py-2 rounded-3 justify-content-between bg-light">
       <p class="col-6 m-0 text-start"><%= t('amount_paid') %></p>
-      <p class="col-6 m-0 fw-bold text-primary text-end"><%= appointment.currency %> <%= appointment.amount %>/-</p>
+      <p class="col-6 m-0 fw-bold text-primary text-end"><%= print_appointment_amount(appointment) %></p>
     </div>
 
-    <% if appointment.date_time - DateTime.now > 30.minutes %>
-      <%= button_to t('cancel_appointment'),
-                    appointment,
-                    method: :delete,
-                    class: 'w-100 mb-3 fw-bold text-uppercase btn btn-outline-danger'
-      %>
-    <% end %>
+    <%= generate_cancel_button(appointment) %>
   </div>
 </div>

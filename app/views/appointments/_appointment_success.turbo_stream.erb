@@ -8,9 +8,7 @@
         <p class="card-text fs-4 fw-bold text-primary text-center">
           <%= render inline: (render file: Rails.root.join('app', 'assets', 'images', 'calendar-2.svg')) %>
           <span class="mx-2">
-          <%= t('today') if appointment_time.to_date.today? %>
-            <%= t('tomorrow') if appointment_time.to_date.tomorrow? %>
-            <%= appointment_time.to_datetime.strftime("#{appointment_time.to_date.day.ordinalize} %B, %I:%M %p") %>
+          <%= print_appointment_date(appointment_time, display_format = 4) %>
         </span>
         </p>
         <p class="fs-6 text-center"><%= t('meeting_starts_in') %></p>
