@@ -1,7 +1,8 @@
 class InvoiceMailer < ApplicationMailer
+  DEFAULT_SENDER_MAIL = 'kushalkhare.official@gmail.com'
   helper :appointments
 
-  default from: 'kushalkhare.official@gmail.com'
+  default from: DEFAULT_SENDER_MAIL
 
   def invoice_email
     @appointment = Appointment.find_by(id: params[:appointment_id])
