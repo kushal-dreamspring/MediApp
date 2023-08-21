@@ -1,7 +1,11 @@
 class AppointmentsController < ApplicationController
   helper CurrencyHelper
   before_action :set_appointment, :authorize_user, only: %i[show destroy]
-  include DateTimeUtilities
+
+  APPOINTMENT_PRICE_IN_INR = 500
+  INVOICE_EMAIL_WAIT_TIME = 2.hours
+  FAKE_SERVICE_WAIT_TIME = 1.second
+  APPOINTMENT_DELETE_DEADLINE = 30.minutes
 
   # GET /appointments or /appointments.json
   def index
@@ -40,22 +44,15 @@ class AppointmentsController < ApplicationController
 
   # POST /appointments or /appointments.json
   def create
-    @user = User.find_by(email: user_params[:email])
-    @user = User.create(user_params) if @user.nil?
-    session[:current_user_id] = @user.id
-
-    @appointment = Appointment.new(**appointment_params,
-                                   amount: CurrencyHelper.amount_in_currency(500, appointment_params[:currency]),
-                                   user_id: @user.id)
+    @appointment = Appointment.new(**appointment_params, amount: APPOINTMENT_PRICE_IN_INR, conversion_rates: CurrencyService.exchange_rates)
+    @appointment.user = User.find_or_initialize_by(email: user_params[:email])
+    @appointment.user.update(**user_params)
 
     respond_to do |format|
       if @appointment.save
-        InvoiceMailer
-          .with(appointment_id: @appointment.id, url: appointment_url(@appointment))
-          .invoice_email.deliver_later(wait_until: @appointment.date_time + 2.hours)
-
+        post_create_actions
         format.turbo_stream do
-          FakeServiceJob.set(wait: 1.second).perform_later(@appointment)
+          FakeServiceJob.set(wait: FAKE_SERVICE_WAIT_TIME).perform_later(@appointment)
         end
       else
         puts @appointment.errors.full_messages
@@ -67,7 +64,7 @@ class AppointmentsController < ApplicationController
   # DELETE /appointments/1 or /appointments/1.json
   def destroy
     respond_to do |format|
-      if @appointment.date_time - DateTime.now > 30.minutes
+      if @appointment.date_time - DateTime.now > APPOINTMENT_DELETE_DEADLINE
         @appointment.destroy
 
         format.html { redirect_to appointments_url, notice: I18n.t('your_appointment_has_been_cancelled') }
@@ -83,21 +80,29 @@ class AppointmentsController < ApplicationController
   def set_appointment
     @appointment = Appointment.find_by(id: params[:id])
 
-    redirect_to appointments_url, alert: 'Appointment not found. Redirecting to your appointments' if @appointment.nil?
+    redirect_to appointments_url, alert: I18n.t('appointment_not_found_redirecting_to_your_appointm') if @appointment.nil?
   end
 
   def authorize_user
-    return unless @appointment.user.id != session[:current_user_id]
+    return unless @appointment.user.id != current_user_id
 
-    redirect_to appointments_url, alert: 'You are not authorised to this URL. Redirecting to your appointments'
+    redirect_to appointments_url, alert: I18n.t('you_are_not_authorised_to_this_url_redirecting_to_')
+  end
+
+  def post_create_actions
+    session_login(@appointment.user.id)
+
+    InvoiceMailer
+      .with(appointment_id: @appointment.id)
+      .invoice_email.deliver_later(wait_until: @appointment.date_time + INVOICE_EMAIL_WAIT_TIME)
   end
 
   # Only allow a list of trusted parameters through.
   def appointment_params
-    params.require(:appointment).permit(:doctor_id, :date_time, :amount, :currency)
+    params.require(:appointment).permit(:doctor_id, :date_time, :amount)
   end
 
   def user_params
-    params.require(:appointment).permit(:name, :email)
+    params.require(:appointment).require(:user_attributes).permit(:name, :email, :currency_preference)
   end
 end
