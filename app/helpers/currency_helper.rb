@@ -11,6 +11,7 @@ module CurrencyHelper
   end
 
   def self.exchange_rates
+    Rails.cache.write(Date.today.strftime('%Y-%m-%d'), { 'EUR' => 0.011076, 'INR' => 1, 'USD' => 0.012029 })
 
     cached_exchange_rate =  Rails.cache.fetch(Date.today.strftime('%Y-%m-%d'))
 

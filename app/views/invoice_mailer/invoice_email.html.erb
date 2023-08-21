@@ -1,6 +1,6 @@
-<h1>Greetings to MediApp, <%= @appointment.user.name %></h1>
+<h1><%= t('greetings_to_medi_app') %> <%= @appointment.user.name %></h1>
 <p>
-  You have successfully booked an appointment with
+  <%= t('you_have_successfully_booked_an_appointment_with') %>
   <strong>Dr. <%= @appointment.doctor.name %></strong> for
   <strong>
     <%= t('today') if @appointment.date_time.to_date == Date.today %>
@@ -8,7 +8,9 @@
     <%= @appointment.date_time.to_datetime.strftime("%a, #{@appointment.date_time.to_date.day.ordinalize} %I:%M %p") %>
   </strong>
 </p>
+<p><%= t('the_total_cost_of_the_appointment_was') %> <strong><%= @appointment.currency + ' ' + @appointment.amount.to_s %></strong></p>
 <p>
-  To get your invoice, just follow this link: <%= @url %>.
+  <%= t('to_get_your_invoice_or_to_cancel_the_appointment_j') %>
+  <a href="<%= @url %>" target="_blank" referrerpolicy="no-referrer"><%= @url %></a>.
 </p>
-<p>Thanks for booking and have a great day!</p>
+<p><%= t('thanks_for_booking_and_have_a_great_day') %></p>

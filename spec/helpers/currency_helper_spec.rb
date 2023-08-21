@@ -11,6 +11,13 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe CurrencyHelper, type: :helper do
+  let(:memory_store) { ActiveSupport::Cache.lookup_store(:memory_store) }
+
+  before do
+    allow(Rails).to receive(:cache).and_return(memory_store)
+    Rails.cache.clear
+  end
+
   it "gets currency exchange rates" do
     exchange_rates = CurrencyHelper.exchange_rates
     expect(exchange_rates["EUR"]).to be_a_kind_of(Numeric)

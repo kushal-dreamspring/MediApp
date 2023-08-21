@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
 
+  def new
+    @user = User.new
+  end
+
   # POST /users or /users.json
   def create
     @user = User.new(user_params)
@@ -11,6 +15,17 @@ class UsersController < ApplicationController
       else
         format.html { render :new, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def login
+    @user = User.find_by_email(user_params[:email])
+
+    if @user
+      session[:current_user_id] = @user.id
+      redirect_to appointments_url, notice: I18n.t('user_was_successfully_logged_in')
+    else
+      redirect_to login_url, notice: I18n.t('the_entered_user_has_no_appointments_with_us')
     end
   end
 

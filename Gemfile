@@ -63,6 +63,7 @@ group :development, :test do
 
   gem 'foreman'
 
+  gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 6.0.0'
 end
 

@@ -1,25 +1,28 @@
 class AppointmentsController < ApplicationController
   helper CurrencyHelper
-  before_action :set_appointment, only: %i[ show edit update destroy ]
+  before_action :set_appointment, :authorize_user, only: %i[show destroy]
   include DateTimeUtilities
 
   # GET /appointments or /appointments.json
   def index
     user_id = session[:current_user_id]
-    @appointments = Appointment.where(user_id: user_id).all if user_id
+    if user_id
+      @appointments = Appointment.where(user_id:).all
+    else
+      redirect_to login_url, notice: I18n.t('login_to_view_your_appointments')
+    end
   end
 
   # GET /appointments/1 or /appointments/1.json
   def show
-    @appointment = Appointment.all.find(params[:id])
-
     respond_to do |format|
       format.csv
+      format.html
       format.pdf do
         render layout: 'application',
                pdf: "Appointment No. #{@appointment.id}",
                page_size: 'A5',
-               orientation: "Landscape",
+               orientation: 'Landscape',
                zoom: 1,
                dpi: 75,
                locals: { appointment: @appointment }
@@ -44,8 +47,10 @@ class AppointmentsController < ApplicationController
       lunch_date_time = combine_date_and_time(date, doctor.lunch_time)
       end_date_time = combine_date_and_time(date, doctor.end_time)
 
-      while date_time < end_date_time do
-        @times[date].push({ time: date_time }) if (date_time > DateTime.now && date_time != lunch_date_time && !booked_appointments.include?(date_time))
+      while date_time < end_date_time
+        if date_time > DateTime.now && date_time != lunch_date_time && !booked_appointments.include?(date_time)
+          @times[date].push({ time: date_time })
+        end
 
         date_time += 1.hours
       end
@@ -67,7 +72,7 @@ class AppointmentsController < ApplicationController
     respond_to do |format|
       if @appointment.save
         InvoiceMailer
-          .with(appointment_id: @appointment.id, pdf: appointment_url(@appointment, format: :pdf))
+          .with(appointment_id: @appointment.id, url: appointment_url(@appointment))
           .invoice_email.deliver_later(wait_until: @appointment.date_time + 2.hours)
 
         format.turbo_stream do
@@ -75,21 +80,19 @@ class AppointmentsController < ApplicationController
         end
       else
         puts @appointment.errors.full_messages
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to new_appointment_url, status: :unprocessable_entity, alert: @appointment.errors.messages[:date_time][0] }
       end
     end
   end
 
   # DELETE /appointments/1 or /appointments/1.json
   def destroy
-    if @appointment.date_time - DateTime.now > 30.minutes
-      @appointment.destroy
+    respond_to do |format|
+      if @appointment.date_time - DateTime.now > 30.minutes
+        @appointment.destroy
 
-      respond_to do |format|
         format.html { redirect_to appointments_url, notice: I18n.t('your_appointment_has_been_cancelled') }
-      end
-    else
-      respond_to do |format|
+      else
         format.html { redirect_to appointments_url, alert: I18n.t('you_can_not_cancel_this_appointment') }
       end
     end
@@ -99,7 +102,15 @@ class AppointmentsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_appointment
-    @appointment = Appointment.find(params[:id])
+    @appointment = Appointment.find_by(id: params[:id])
+
+    redirect_to appointments_url, alert: 'Appointment not found. Redirecting to your appointments' if @appointment.nil?
+  end
+
+  def authorize_user
+    return unless @appointment.user.id != session[:current_user_id]
+
+    redirect_to appointments_url, alert: 'You are not authorised to this URL. Redirecting to your appointments'
   end
 
   # Only allow a list of trusted parameters through.

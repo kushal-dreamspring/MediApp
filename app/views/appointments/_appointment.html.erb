@@ -1,5 +1,5 @@
 <div id="<%= dom_id appointment %>" class="g-col-12 g-col-md-6">
-  <div class="bg-white rounded-3 shadow p-3">
+  <div class="bg-white rounded-3 shadow p-3 h-100">
     <div class="row mb-3 justify-content-start">
       <div class="col-3">
         <%= image_tag appointment.doctor.image, class: 'doctor-image', size: '75' %>
@@ -50,10 +50,12 @@
       <p class="col-6 m-0 fw-bold text-primary text-end"><%= appointment.currency %> <%= appointment.amount %>/-</p>
     </div>
 
-    <%= button_to t('cancel_appointment'),
-                  appointment,
-                  method: :delete,
-                  class: 'w-100 mb-3 fw-bold text-uppercase btn btn-outline-danger'
-    %>
+    <% if appointment.date_time - DateTime.now > 30.minutes %>
+      <%= button_to t('cancel_appointment'),
+                    appointment,
+                    method: :delete,
+                    class: 'w-100 mb-3 fw-bold text-uppercase btn btn-outline-danger'
+      %>
+    <% end %>
   </div>
 </div>
