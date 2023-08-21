@@ -1,18 +1,17 @@
 default: &default
-  adapter: sqlite3
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch('RAILS_MAX_THREADS') { 5 } %>
   timeout: 5000
 
 development:
   <<: *default
-  database: db/development.sqlite3
+  url: 'postgres://postgres:postgres@localhost:5432/mediapp_development'
 
 test:
   <<: *default
-  database: db/test.sqlite3
+  url: 'postgres://postgres:postgres@localhost:5432/mediapp_test'
 
 production:
-  adapter: postgresql
-  encoding: unicode
-  pool: <%= ENV.fetch('RAILS_MAX_THREADS') { 5 } %>
+  <<: *default
   url: <%= Rails.application.credentials['DB_URL'] %>
