@@ -6,7 +6,8 @@ RSpec.describe '/users', type: :request do
     {
       id: 0,
       name: 'John Doe',
-      email: 'johndoe@test.com'
+      email: 'johndoe@test.com',
+      currency_preference: 'USD'
     }
   end
 
@@ -14,7 +15,8 @@ RSpec.describe '/users', type: :request do
     {
       id: 0,
       name: nil,
-      email: nil
+      email: nil,
+      currency_preference: nil
     }
   end
 
