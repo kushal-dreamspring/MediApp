@@ -11,7 +11,7 @@ RSpec.describe '/doctors', type: :request do
 
     it 'sets @next_appointment for all doctors' do
       get doctors_url
-      expect(assigns(:next_appointment).size).to be(2)
+      expect(assigns(:doctors).size).to be(2)
     end
   end
 end

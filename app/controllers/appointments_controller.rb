@@ -33,30 +33,9 @@ class AppointmentsController < ApplicationController
 
   # GET /appointments/new
   def new
-    @appointment = Appointment.new
-    @times = {}
-
-    dates = (0..6).map { |i| Date.today + i }
-    doctor = Doctor.find(params[:doctor_id])
-    booked_appointments = Appointment.where(doctor_id: params[:doctor_id]).map { |ap| ap.date_time.to_datetime }
-
-    dates.each do |date|
-      @times[date] = []
-
-      date_time = combine_date_and_time(date, doctor.start_time)
-      lunch_date_time = combine_date_and_time(date, doctor.lunch_time)
-      end_date_time = combine_date_and_time(date, doctor.end_time)
-
-      while date_time < end_date_time
-        if date_time > DateTime.now && date_time != lunch_date_time && !booked_appointments.include?(date_time)
-          @times[date].push({ time: date_time })
-        end
-
-        date_time += 1.hours
-      end
-
-      @times.delete(date) if @times[date].empty?
-    end
+    @appointment = Appointment.new(doctor_id: params[:doctor_id])
+    @appointment.build_user
+    @times = @appointment.doctor.available_appointments
   end
 
   # POST /appointments or /appointments.json
