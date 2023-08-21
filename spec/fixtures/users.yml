@@ -1,4 +1,5 @@
-zero:
-  id: 0
+one:
+  id: 1
   name: John Doe
   email: johndoe@test.com
+  currency_preference: 'USD'

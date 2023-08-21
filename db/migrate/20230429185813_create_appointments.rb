@@ -5,7 +5,7 @@ class CreateAppointments < ActiveRecord::Migration[7.0]
       t.belongs_to :user, null: false, foreign_key: true
       t.datetime :date_time
       t.decimal :amount, precision: 10, scale: 2
-      t.integer :currency, default: 0
+      t.jsonb :conversion_rates, default: {}, null: false
 
       t.timestamps
     end

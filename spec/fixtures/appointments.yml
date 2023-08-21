@@ -1,10 +1,12 @@
 one:
   doctor_id: 1
-  user_id: 0
+  user_id: 1
   date_time: 2000-01-01 09:00:00
   amount: 500
+  conversion_rates: { "EUR": 0.011076, "INR": 1, "USD": 0.012029 }
 two:
   doctor_id: 2
-  user_id: 0
+  user_id: 1
   date_time: 2000-01-01 09:00:00
   amount: 500
+  conversion_rates: { "EUR": 0.011076, "INR": 1, "USD": 0.012029 }
