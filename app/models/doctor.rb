@@ -7,7 +7,7 @@ class Doctor < ApplicationRecord
   MAX_NUMBER_OF_AVAILABLE_DAYS = 7
 
   def available_appointments
-    booked_appointments = appointments.map(&:date_time)
+    booked_appointments = appointments.all.map(&:date_time)
     available_slots = {}
 
     MAX_NUMBER_OF_AVAILABLE_DAYS.times.map do |i|
@@ -33,7 +33,7 @@ class Doctor < ApplicationRecord
   end
 
   def next_available_appointment
-    available_appointments.first[1][0]
+    available_appointments.first&.at(1)&.at(0)
   end
 
   private
