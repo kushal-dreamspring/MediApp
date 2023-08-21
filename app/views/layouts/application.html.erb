@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="en-US">
-<head>
-  <title>Medi App</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
+  <head>
+    <title>Medi App</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
 
-  <%= stylesheet_link_tag "application.bootstrap", "data-turbo-track": "reload" %>
-  <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
-</head>
+    <%= stylesheet_link_tag "application.bootstrap", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+  </head>
 
-<body>
-<%= render "nav" %>
-<div class="container mt-5" style="max-width: 856px">
-  <% if notice %>
-    <div class="alert alert-success" role="alert"><%= notice %></div>
-  <% end %>
-  <% if alert %>
-    <div class="alert alert-danger" role="alert"><%= alert %></div>
-  <% end %>
-  <%= yield %>
-</div>
-</body>
+  <body>
+    <%= render "nav" %>
+    <div class="container mt-5" style="max-width: 856px">
+      <% if notice %>
+        <div class="alert alert-success" role="alert"><%= notice %></div>
+      <% end %>
+      <% if alert %>
+        <div class="alert alert-danger" role="alert"><%= alert %></div>
+      <% end %>
+      <%= yield %>
+    </div>
+  </body>
 </html>

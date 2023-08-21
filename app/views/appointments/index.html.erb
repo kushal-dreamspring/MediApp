@@ -1,10 +1,8 @@
 <h3 class="h3 fw-bold lh-base text-center mb-4"><%= t('my_appointments') %></h3>
 
-<% if @appointments && !@appointments.empty? %>
+<% if @appointments.present? %>
   <div id="appointments" class="grid mb-3">
-    <% @appointments.each do |appointment| %>
-      <%= render appointment %>
-    <% end %>
+      <%= render @appointments %>
   </div>
 <% else %>
   <h4 class="h4 text-center text-info mt-5"><%= t('you_have_no_appointments_yet') %></h4>

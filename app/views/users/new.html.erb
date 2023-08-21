@@ -17,7 +17,11 @@
 
       <div class="mb-3">
         <%= form.label :email, style: "display: block", class: "text-dark fw-semibold mb-1" %>
-        <%= form.email_field :email, type: :email, class: "form-control form-control-lg", placeholder: t('enter_email'), required: true %>
+        <%= form.email_field :email, type: :email, class: "form-control form-control-lg",
+                             placeholder: t('enter_email'), required: true,
+                             pattern: "^[\w+\-.]+@[a-z\d\-.]+\.[a-z]+$",
+                             oninvalid: "this.setCustomValidity('Name can only contain letters and spaces')",
+                             onchange: "this.setCustomValidity('')" %>
       </div>
 
       <div class="mb-3">
