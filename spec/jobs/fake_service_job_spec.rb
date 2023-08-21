@@ -3,11 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe FakeServiceJob, type: :job do
-  describe '#perform_later' do
+  fixtures :appointments
 
-    it 'uploads a backup' do
-      ActiveJob::Base.queue_adapter = :test
-      expect { FakeServiceJob.perform_later }.to have_enqueued_job
-    end
+  it 'should broadcast using turbo_stream' do
+    expect(Turbo::StreamsChannel).to receive(:broadcast_render_later_to)
+    FakeServiceJob.perform_now(appointments(:one))
   end
 end
