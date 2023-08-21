@@ -2,7 +2,7 @@ class Doctor < ApplicationRecord
   has_many :appointments
 
   validates_presence_of :name, :image, :address, :start_time, :end_time, :lunch_time
-  validates :name, format: { with: /[A-Za-z ]+/i }
+  validates :name, format: { with: /\A[A-Za-z ]+\z/i }
 
   MAX_NUMBER_OF_AVAILABLE_DAYS = 7
 

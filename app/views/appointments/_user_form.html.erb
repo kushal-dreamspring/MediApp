@@ -20,7 +20,7 @@
 
   <div class="grid gap-1 mb-3">
     <h5 class="g-col-12 text-dark fw-semibold mb-1"><%= t('select_currency') %></h5>
-    <% %w[INR USD EUR].each_with_index do |c, i| %>
+    <% User::VALID_CURRENCIES.each_with_index do |c, i| %>
       <%= user_form.radio_button :currency_preference, c, class: "btn-check", checked: i == 0 %>
       <%= user_form.label t('currency_preference_downcase', downcase: c.downcase), c, class: "g-col-4 btn currency-select fs-6" %>
     <% end %>
