@@ -67,9 +67,7 @@ class AppointmentsController < ApplicationController
   # DELETE /appointments/1 or /appointments/1.json
   def destroy
     respond_to do |format|
-      if @appointment.date_time - DateTime.now > APPOINTMENT_DELETE_DEADLINE
-        @appointment.destroy
-
+      if @appointment.date_time - DateTime.now > APPOINTMENT_DELETE_DEADLINE && @appointment.destroy
         format.html { redirect_to appointments_url, notice: I18n.t('your_appointment_has_been_cancelled') }
       else
         format.html { redirect_to appointments_url, alert: I18n.t('you_can_not_cancel_this_appointment') }
