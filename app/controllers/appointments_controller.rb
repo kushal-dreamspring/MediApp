@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../services/currency_service'
-require_relative './concerns/session_logic'
-
 class AppointmentsController < ApplicationController
   include SessionLogic
   include CurrencyService
