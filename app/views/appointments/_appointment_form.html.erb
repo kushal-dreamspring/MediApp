@@ -11,19 +11,19 @@
       <span class="visually-hidden">Previous</span>
     </button>
     <div class="carousel-inner m-auto" role="tablist">
-      <% @times.keys.each_slice(3).each_with_index do |date, i| %>
+      <% @times.keys.each_slice(3).each_with_index do |dates, i| %>
         <div class="carousel-item <%= i == 0 ? 'active' : '' %>">
-          <% date.each_with_index do |d, j| %>
+          <% dates.each_with_index do |date, j| %>
             <div
               class="date-item w-100 mx-1 d-flex flex-column justify-content-center <%= 'active' if i + j == 0 %>"
               data-bs-toggle="tab"
-              data-bs-target="#nav-<%= d %>"
+              data-bs-target="#nav-<%= date %>"
               type="button"
               role="tab">
               <span class="d-block h5 text-center">
-                <%= print_appointment_date(d, display_format = 0) %>
+                <%= print_appointment_date(date, display_format = 0) %>
               </span>
-              <span class="d-block text-center text-secondary small"><%= d.strftime("%b") %></span>
+              <span class="d-block text-center text-secondary small"><%= date.strftime("%b") %></span>
             </div>
           <% end %>
         </div>

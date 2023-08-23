@@ -1,4 +1,4 @@
-<h4 class="h4 text-center fw-bold mb-3">Add Details 🧑🏻</h4>
+<h4 class="h4 text-center fw-bold mb-3"><%= t('add_details') %></h4>
 
 <%= form.fields_for :user do |user_form| %>
   <div class="mb-3">
@@ -20,9 +20,9 @@
 
   <div class="grid gap-1 mb-3">
     <h5 class="g-col-12 text-dark fw-semibold mb-1"><%= t('select_currency') %></h5>
-    <% User::VALID_CURRENCIES.each_with_index do |c, i| %>
-      <%= user_form.radio_button :currency_preference, c, class: "btn-check", checked: i == 0 %>
-      <%= user_form.label t('currency_preference_downcase', downcase: c.downcase), c, class: "g-col-4 btn currency-select fs-6" %>
+    <% User::VALID_CURRENCIES.each_with_index do |currency, i| %>
+      <%= user_form.radio_button :currency_preference, currency, class: "btn-check", checked: i == 0 %>
+      <%= user_form.label t('currency_preference_downcase', downcase: currency.downcase), currency, class: "g-col-4 btn currency-select fs-6" %>
     <% end %>
   </div>
 <% end %>

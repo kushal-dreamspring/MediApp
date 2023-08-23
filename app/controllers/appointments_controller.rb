@@ -58,8 +58,8 @@ class AppointmentsController < ApplicationController
           FakeServiceJob.set(wait: FAKE_SERVICE_WAIT_TIME).perform_later(@appointment)
         end
       else
-        puts @appointment.errors.full_messages
-        format.html { redirect_to new_appointment_url, status: :unprocessable_entity, alert: @appointment.errors.messages[:date_time][0] }
+        @times = @appointment.doctor.available_appointments
+        format.html { render :new, status: :unprocessable_entity }
       end
     end
   end

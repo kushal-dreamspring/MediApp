@@ -1,11 +1,11 @@
 <%= form_with(model: @appointment, html: { "data-action": "submit->appointment#showLoader" }) do |form| %>
   <% if @appointment.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(@appointment.errors.count, "error") %> <%= t('prohibited_this_appointment_from_being_saved') %></h2>
+    <div class="alert alert-danger" role="alert">
+      <h4><%= pluralize(@appointment.errors.count, "error") %> <%= t('prohibited_this_appointment_from_being_saved') %></h4>
 
-      <ul>
+      <ul class="mb-0">
         <% @appointment.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+          <li><%= error.message %></li>
         <% end %>
       </ul>
     </div>
