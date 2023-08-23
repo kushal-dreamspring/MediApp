@@ -117,4 +117,10 @@ RSpec.describe Appointment do
       expect(Appointment.new(**valid_attributes[2]).valid?).to be_falsey
     end
   end
+
+  describe 'amount_in_preferred_currency' do
+    it 'should return 500 for user_2"' do
+      expect(Appointment.new(**valid_attributes[2]).amount_in_preferred_currency).to eq 500
+    end
+  end
 end
