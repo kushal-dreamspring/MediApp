@@ -25,7 +25,7 @@ module AppointmentsHelper
   end
 
   def print_appointment_amount(appointment)
-    "#{appointment.user.currency_preference} #{(appointment.amount * appointment.conversion_rates[appointment.user.currency_preference]).round(2)}/-"
+    "#{appointment.user.currency_preference} #{appointment.amount_in_preferred_currency}/-"
   end
 
   def generate_cancel_button(appointment)

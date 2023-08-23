@@ -82,3 +82,5 @@ en:
   no_need_to_enter_pin_we_already_know_it_anyways: "No need to enter pin. We already know it anyways."
   you_are_not_authorised_to_this_url_redirecting_to_: "You are not authorised to this URL. Redirecting to your appointments"
   appointment_not_found_redirecting_to_your_appointm: "Appointment not found. Redirecting to your appointments"
+  user_already_has_a_appointment_at_this_time: "User already has a appointment at this time"
+  doctor_already_has_a_appointment_at_this_time: "Doctor already has a appointment at this time"
