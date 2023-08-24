@@ -31,53 +31,21 @@ RSpec.describe Appointment do
   end
 
   let(:invalid_attributes) do
-    [
-      {
-        user_id: users(:one).id,
-        date_time: DateTime.now + 1.hours,
-        amount: 500,
-        conversion_rates: { "EUR": 0.011076, "INR": 1, "USD": 0.012029 }
-      },
-      {
-        doctor_id: doctors(:one).id,
-        date_time: DateTime.now + 1.hours,
-        amount: 500,
-        conversion_rates: { "EUR": 0.011076, "INR": 1, "USD": 0.012029 }
-      },
-      {
-        doctor_id: doctors(:one).id,
-        user_id: users(:one).id,
-        amount: 500,
-        conversion_rates: { "EUR": 0.011076, "INR": 1, "USD": 0.012029 }
-      },
-      {
-        doctor_id: doctors(:one).id,
-        user_id: users(:one).id,
-        date_time: DateTime.now + 1.hours,
-        conversion_rates: { "EUR": 0.011076, "INR": 1, "USD": 0.012029 }
-      },
-      {
-        doctor_id: doctors(:one).id,
-        user_id: users(:one).id,
-        date_time: DateTime.now + 1.hours,
-        amount: 500
-      },
-      {
-        doctor_id: doctors(:one).id,
-        user_id: users(:one).id,
-        date_time: DateTime.now - 1.hours,
-        amount: 500,
-        conversion_rates: { "EUR": 0.011076, "INR": 1, "USD": 0.012029 }
-      }
-    ]
+    {
+      doctor_id: doctors(:one).id,
+      user_id: users(:one).id,
+      date_time: DateTime.now - 1.hours,
+      amount: 500,
+      conversion_rates: { "EUR": 0.011076, "INR": 1, "USD": 0.012029 }
+    }
   end
 
-  context 'when attributes are missing' do
-    it 'should have validation errors' do
-      invalid_attributes[0..4].each do |appointment|
-        expect(Appointment.new(**appointment).valid?).to be_falsey
-      end
-    end
+  describe 'presence validations' do
+    it { should validate_presence_of(:doctor) }
+    it { should validate_presence_of(:user) }
+    it { should validate_presence_of(:date_time) }
+    it { should validate_presence_of(:amount) }
+    it { should validate_presence_of(:conversion_rates) }
   end
 
   context 'when date_time is in past' do
@@ -119,7 +87,7 @@ RSpec.describe Appointment do
   end
 
   describe 'amount_in_preferred_currency' do
-    it 'should return 500 for user_2"' do
+    it 'should return 500 for user_2' do
       expect(Appointment.new(**valid_attributes[2]).amount_in_preferred_currency).to eq 500
     end
   end

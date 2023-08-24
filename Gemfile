@@ -84,4 +84,6 @@ group :test do
   gem 'selenium-webdriver'
   gem 'webdrivers'
   gem 'timecop'
+  gem 'shoulda-matchers', '~> 5.0'
+  gem "webmock"
 end

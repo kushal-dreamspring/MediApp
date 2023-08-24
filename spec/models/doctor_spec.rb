@@ -5,74 +5,28 @@ RSpec.describe Doctor, type: :model do
   fixtures :doctors, :users
 
   let(:invalid_attributes) do
-    [
-      {
-        image: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.iD-DLh5NRStUnPKSUq1IIQHaFf%26pid%3DApi&f=1&ipt=ee801bcb736c46dc3abe22650ad3841b2462ed1bee08832a8e861b7da5fe46b9&ipo=images',
-        address: 'Wayne Mansion, Gotham',
-        start_time: '2000-01-01 09:00:00',
-        end_time: '2000-01-01 17:00:00',
-        lunch_time: '2000-01-01 13:00:00'
-      },
-      {
-        name: 'Batman',
-        address: 'Wayne Mansion, Gotham',
-        start_time: '2000-01-01 09:00:00',
-        end_time: '2000-01-01 17:00:00',
-        lunch_time: '2000-01-01 13:00:00'
-      },
-      {
-        name: 'Batman',
-        image: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.iD-DLh5NRStUnPKSUq1IIQHaFf%26pid%3DApi&f=1&ipt=ee801bcb736c46dc3abe22650ad3841b2462ed1bee08832a8e861b7da5fe46b9&ipo=images',
-        start_time: '2000-01-01 09:00:00',
-        end_time: '2000-01-01 17:00:00',
-        lunch_time: '2000-01-01 13:00:00'
-      },
-      {
-        name: 'Batman',
-        image: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.iD-DLh5NRStUnPKSUq1IIQHaFf%26pid%3DApi&f=1&ipt=ee801bcb736c46dc3abe22650ad3841b2462ed1bee08832a8e861b7da5fe46b9&ipo=images',
-        address: 'Wayne Mansion, Gotham',
-        end_time: '2000-01-01 17:00:00',
-        lunch_time: '2000-01-01 13:00:00'
-      },
-      {
-        name: 'Batman',
-        image: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.iD-DLh5NRStUnPKSUq1IIQHaFf%26pid%3DApi&f=1&ipt=ee801bcb736c46dc3abe22650ad3841b2462ed1bee08832a8e861b7da5fe46b9&ipo=images',
-        address: 'Wayne Mansion, Gotham',
-        start_time: '2000-01-01 09:00:00',
-        lunch_time: '2000-01-01 13:00:00'
-      },
-      {
-        name: 'Batman',
-        image: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.iD-DLh5NRStUnPKSUq1IIQHaFf%26pid%3DApi&f=1&ipt=ee801bcb736c46dc3abe22650ad3841b2462ed1bee08832a8e861b7da5fe46b9&ipo=images',
-        address: 'Wayne Mansion, Gotham',
-        start_time: '2000-01-01 09:00:00',
-        end_time: '2000-01-01 17:00:00',
-      },
-      {
-        name: 'Batman123',
-        image: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.iD-DLh5NRStUnPKSUq1IIQHaFf%26pid%3DApi&f=1&ipt=ee801bcb736c46dc3abe22650ad3841b2462ed1bee08832a8e861b7da5fe46b9&ipo=images',
-        address: 'Wayne Mansion, Gotham',
-        start_time: '2000-01-01 09:00:00',
-        end_time: '2000-01-01 17:00:00',
-        lunch_time: '2000-01-01 13:00:00'
-      }
-    ]
+    {
+      name: 'Batman123',
+      image: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.iD-DLh5NRStUnPKSUq1IIQHaFf%26pid%3DApi&f=1&ipt=ee801bcb736c46dc3abe22650ad3841b2462ed1bee08832a8e861b7da5fe46b9&ipo=images',
+      address: 'Wayne Mansion, Gotham',
+      start_time: '2000-01-01 09:00:00',
+      end_time: '2000-01-01 17:00:00',
+      lunch_time: '2000-01-01 13:00:00'
+    }
   end
 
-  describe 'validations' do
-    context 'when attributes are missing' do
-      it 'should have validation errors' do
-        invalid_attributes[0..5].each do |doctor|
-          expect(Doctor.new(**doctor).valid?).to be_falsey
-        end
-      end
-    end
+  describe 'presence validations' do
+    it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:image) }
+    it { should validate_presence_of(:address) }
+    it { should validate_presence_of(:start_time) }
+    it { should validate_presence_of(:end_time) }
+    it { should validate_presence_of(:lunch_time) }
+  end
 
-    context 'when name is not valid' do
-      it 'should have validation errors' do
-        expect(Doctor.new(**invalid_attributes[6]).valid?).to be_falsey
-      end
-    end
+  describe 'name format validations' do
+    it { should allow_value('John Doe').for(:name) }
+    it { should_not allow_value('John123').for(:name) }
   end
 
   describe 'available_appointments' do
