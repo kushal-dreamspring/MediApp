@@ -1,14 +1,14 @@
-<h1><%= t('greetings_to_medi_app') %> <%= @appointment.user.name %></h1>
+<h1><%= t('invoice_mail.greetings') %> <%= @appointment.user.name %></h1>
 <p>
-  <%= t('you_have_successfully_booked_an_appointment_with') %>
+  <%= t('invoice_mail.success_message') %>
   <strong>Dr. <%= @appointment.doctor.name %></strong> for
   <strong>
     <%= print_appointment_date(@appointment.date_time, display_format = 4) %>
   </strong>
 </p>
-<p><%= t('the_total_cost_of_the_appointment_was') %> <strong><%= print_appointment_amount(@appointment) %></strong></p>
+<p><%= t('invoice_mail.total_cost') %> <strong><%= print_appointment_amount(@appointment) %></strong></p>
 <p>
-  <%= t('to_get_your_invoice_or_to_cancel_the_appointment_j') %>
+  <%= t('invoice_mail.get_or_cancel_invoice_message') %>
   <a href="<%= appointment_url(@appointment) %>" target="_blank" referrerpolicy="no-referrer"><%= appointment_url(@appointment) %></a>.
 </p>
-<p><%= t('thanks_for_booking_and_have_a_great_day') %></p>
+<p><%= t('invoice_mail.thanks_message') %></p>

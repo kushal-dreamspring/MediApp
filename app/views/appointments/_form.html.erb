@@ -1,7 +1,7 @@
 <%= form_with(model: @appointment, html: { "data-action": "submit->appointment#showLoader" }) do |form| %>
   <% if @appointment.errors.any? %>
     <div class="alert alert-danger" role="alert">
-      <h4><%= pluralize(@appointment.errors.count, "error") %> <%= t('prohibited_this_appointment_from_being_saved') %></h4>
+      <h4><%= pluralize(@appointment.errors.count, "error") %> <%= t('appointment_form.error_message') %></h4>
 
       <ul class="mb-0">
         <% @appointment.errors.each do |error| %>

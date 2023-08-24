@@ -1,6 +1,6 @@
-<%= t('welcome_to_example_com') %> <%= @appointment.user.name %>
-<%= t('you_have_successfully_booked_an_appointment_with_d') %> <%= @appointment.doctor.name %> for <%= @appointment.date_time %>
+<%= t('invoice_mail.greetings') %> <%= @appointment.user.name %>
+<%= t('invoice_mail.success_message') %> <%= @appointment.doctor.name %> for <%= @appointment.date_time %>
 
-<%= t('to_view_your_appointments_just_follow_this_link') %> <%= @url %>.
+<%= t('invoice_mail.get_or_cancel_invoice_message') %> <%= appointment_url(@appointment) %>.
 
-<%= t('thanks_for_booking_and_have_a_great_day') %>
+<%= t('invoice_mail.thanks_message') %>

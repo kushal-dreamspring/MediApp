@@ -11,9 +11,9 @@ class UsersController < ApplicationController
 
     if @user
       session_login(@user.id)
-      redirect_to appointments_url, notice: I18n.t('user_was_successfully_logged_in')
+      redirect_to appointments_url, notice: I18n.t('login_form.notice.user_was_successfully_logged_in')
     else
-      redirect_to login_url, notice: I18n.t('the_entered_user_has_no_appointments_with_us')
+      redirect_to login_url, notice: I18n.t('login_form.notice.the_entered_user_has_no_appointments_with_us')
     end
   end
 

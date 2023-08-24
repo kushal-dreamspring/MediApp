@@ -4,8 +4,8 @@ require 'rails_helper'
 
 RSpec.describe DoctorsHelper do
   context 'when appointment time is not present' do
-    it "returns #{I18n.t('not_available')}" do
-      expect(display_next_appointment(nil)).to eq I18n.t('not_available')
+    it "returns #{I18n.t('doctors_card.not_available')}" do
+      expect(display_next_appointment(nil)).to eq I18n.t('doctors_card.not_available')
     end
   end
 

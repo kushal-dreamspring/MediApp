@@ -1,86 +1,75 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   "true": "foo"
-#
-# To learn more, please read the Rails Internationalization guide
-# available at https://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
   medi_app: "MediApp"
   my_appointments: "My Appointments"
-  your_consultation_details: "🗓 Your Consultation Details"
-  download_your_invoice: "Download your invoice"
-  amount_paid: "Amount Paid"
-  cancel_appointment: "Cancel Appointment"
-  select_a_date: "Select a date"
-  select_a_time_for: "Select a time for"
-  due_to_high_demand_it_is_difficult_to_reschedule_a: "Due to high demand, it is difficult to reschedule appointments. Please book your slot carefully!"
-  book_appointment: "Book Appointment"
-  congratulations: "Congratulations"
-  appointment_booked: "Appointment Booked"
-  meeting_starts_in: "Meeting starts in"
-  days: "Days"
-  hours: "Hours"
-  mins: "Mins"
-  secs: "Secs"
-  prohibited_this_appointment_from_being_saved: "prohibited this appointment from being saved:"
-  add_details: "Add Details 🧑🏻"
-  enter_name: "Enter Name"
-  enter_email: "Enter Email"
-  select_currency: "Select Currency"
-  currency_preference_downcase: "currency_preference_%{downcase}"
-  pay_now: "Pay Now"
-  appointments: "Appointments"
-  you_have_no_appointments_yet: "You have no appointments yet!!"
-  next_available: "Next Available"
-  book_visit: "Book Visit"
-  my_doctors: "My Doctors"
-  user_was_successfully_created: "User was successfully created."
-  your_appointment_has_been_cancelled: "Your appointment has been cancelled."
-  you_can_not_cancel_this_appointment: "You can not cancel this appointment."
   today: "Today, "
   tomorrow: "Tomorrow, "
-  login: "Login"
-  user_was_successfully_logged_in: "User was successfully logged in"
-  the_entered_user_has_no_appointments_with_us: "The entered user has no appointments with us"
-  login_to_view_your_appointments: "Login to view your appointments"
-  greetings_to_medi_app: "Greetings to MediApp,"
-  you_have_successfully_booked_an_appointment_with: "You have successfully booked an appointment with"
-  the_total_cost_of_the_appointment_was: "The total cost of the appointment was"
-  to_get_your_invoice_or_to_cancel_the_appointment_j: "To get your invoice or to cancel the appointment, just follow this link:"
-  thanks_for_booking_and_have_a_great_day: "Thanks for booking and have a great day!"
-  welcome_to_example_com: "Welcome to example.com,"
-  you_have_successfully_booked_an_appointment_with_d: "======================================================= You have successfully booked an appointment with Dr."
-  to_view_your_appointments_just_follow_this_link: "To view your appointments, just follow this link:"
-  not_available: "Not Available"
-  medi_app_thanks_for_booking_an_appointment_with_us: "MediApp: Thanks for booking an appointment with us"
-  no_need_to_enter_pin_we_already_know_it_anyways: "No need to enter pin. We already know it anyways."
-  you_are_not_authorised_to_this_url_redirecting_to_: "You are not authorised to this URL. Redirecting to your appointments"
-  appointment_not_found_redirecting_to_your_appointm: "Appointment not found. Redirecting to your appointments"
-  user_already_has_a_appointment_at_this_time: "User already has a appointment at this time"
-  doctor_already_has_a_appointment_at_this_time: "Doctor already has a appointment at this time"
+  appointments_model:
+    error_messages:
+      user_already_has_a_appointment_at_this_time: "User already has a appointment at this time"
+      doctor_already_has_a_appointment_at_this_time: "Doctor already has a appointment at this time"
+  login_form:
+    heading: "Login"
+    labels:
+      email: "Enter Email"
+    notice:
+      user_was_successfully_logged_in: "User was successfully logged in"
+      the_entered_user_has_no_appointments_with_us: "The entered user has no appointments with us"
+  appointments_page:
+    no_appointments_message: "You have no appointments yet!!"
+    notice:
+      system_issue_message: "There is some issue with the system, please try again later"
+      successful_cancellation_message: "Your appointment has been cancelled."
+      unsuccessful_cancellation_message: "You can not cancel this appointment."
+      appointment_not_found_message: "Appointment not found. Redirecting to your appointments"
+      not_authorised_message: "You are not authorised to this URL. Redirecting to your appointments"
+      login_to_view_your_appointments: "Login to view your appointments"
+  appointment_card:
+    subheading: "🗓 Your Consultation Details"
+    download_your_invoice: "Download your invoice"
+    amount_paid: "Amount Paid"
+    button_label:
+      cancel_appointment: "Cancel Appointment"
+  appointment_pdf:
+    payment_receipt: "Payment Receipt"
+    refundable_message: "The appointment fee is refundable upon cancellation if request is placed at least 30 minutes before appointment"
+    appointment_no: "Appointment No. :"
+    patient_name: "Patient Name:"
+  doctors_page:
+    heading: "My Doctors"
+  doctors_card:
+    next_available: "Next Available"
+    book_visit: "Book Visit"
+    not_available: "Not Available"
+  appointment_form:
+    select_a_date: "Select a date"
+    select_a_time_for: "Select a time for"
+    high_demand_message: "Due to high demand, it is difficult to reschedule appointments. Please book your slot carefully!"
+    button_label:
+      book_appointment: "Book Appointment"
+    error_message: "prohibited this appointment from being saved:"
+  loading_page:
+    message: "No need to enter pin. We already know it anyways."
+  user_form:
+    title: "Add Details 🧑🏻"
+    labels:
+      name: "Enter Name"
+      email: "Enter Email"
+      currency: "Select Currency"
+    button_labels:
+      currency: "currency_preference_%{downcase}"
+      pay_now: "Pay Now"
+  appointment_success:
+    congratulations: "Congratulations"
+    appointment_booked: "Appointment Booked"
+    meeting_starts_in: "Meeting starts in"
+    days: "Days"
+    hours: "Hours"
+    mins: "Mins"
+    secs: "Secs"
+  invoice_mail:
+    subject: "MediApp: Thanks for booking an appointment with us"
+    greetings: "Greetings to MediApp,"
+    success_message: "You have successfully booked an appointment with"
+    total_cost: "The total cost of the appointment was"
+    get_or_cancel_invoice_message: "To get your invoice or to cancel the appointment, just follow this link:"
+    thanks_message: "Thanks for booking and have a great day!"

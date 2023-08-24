@@ -16,7 +16,7 @@ class AppointmentsController < ApplicationController
     if current_user_id
       @appointments = User.find_by_id(current_user_id).appointments
     else
-      redirect_to login_url, notice: I18n.t('login_to_view_your_appointments')
+      redirect_to login_url, notice: I18n.t('appointments_page.notice.login_to_view_your_appointments')
     end
   end
 
@@ -68,9 +68,9 @@ class AppointmentsController < ApplicationController
   def destroy
     respond_to do |format|
       if @appointment.date_time - DateTime.now > APPOINTMENT_DELETE_DEADLINE && @appointment.destroy
-        format.html { redirect_to appointments_url, notice: I18n.t('your_appointment_has_been_cancelled') }
+        format.html { redirect_to appointments_url, notice: I18n.t('appointments_page.notice.successful_cancellation_message') }
       else
-        format.html { redirect_to appointments_url, alert: I18n.t('you_can_not_cancel_this_appointment') }
+        format.html { redirect_to appointments_url, alert: I18n.t('appointments_page.notice.unsuccessful_cancellation_message') }
       end
     end
   end
@@ -81,13 +81,13 @@ class AppointmentsController < ApplicationController
   def set_appointment
     @appointment = Appointment.find_by(id: params[:id])
 
-    redirect_to appointments_url, alert: I18n.t('appointment_not_found_redirecting_to_your_appointm') if @appointment.nil?
+    redirect_to appointments_url, alert: I18n.t('appointments_page.notice.appointment_not_found_message') if @appointment.nil?
   end
 
   def authorize_user
     return unless @appointment.user.id != current_user_id
 
-    redirect_to appointments_url, alert: I18n.t('you_are_not_authorised_to_this_url_redirecting_to_')
+    redirect_to appointments_url, alert: I18n.t('appointments_page.notice.not_authorised_message')
   end
 
   def post_create_actions

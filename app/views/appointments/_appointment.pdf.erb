@@ -1,12 +1,12 @@
-<h1 class="heading h1 my-3 p-3 text-center">Payment Receipt</h1>
+<h1 class="heading h1 my-3 p-3 text-center"><%= t('appointment_pdf.payment_receipt') %></h1>
 <h2 class="subheading h2 mb-5 pb-3 text-center">
   Dr. <%= appointment.doctor.name %>
   <div class="vr"></div>
   <%= appointment.doctor.address %>
 </h2>
 
-<h2 class="h2">Appointment No. : <span class="patient_name"><%= appointment.id %></span></h2>
-<h2 class="h2">Patient Name: <span class="patient_name"><%= appointment.user.name %></span></h2>
+<h2 class="h2"><%= t('appointment_pdf.appointment_no') %> <span class="patient_name"><%= appointment.id %></span></h2>
+<h2 class="h2"><%= t('appointment_pdf.patient_name') %> <span class="patient_name"><%= appointment.user.name %></span></h2>
 <h2 class="h2">Date: <span class="patient_name">
   <%= print_appointment_date(appointment.date_time.to_date, display_format = 2) %>
 </span></h2>
@@ -16,6 +16,6 @@
 <div class="terms">
   <h4>Terms</h4>
   <p>
-    The appointment fee is refundable upon cancellation if request is placed at least 30 minutes before appointment
+    <%= t('appointment_pdf.refundable_message') %>
   </p>
 </div>

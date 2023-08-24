@@ -9,6 +9,6 @@ class InvoiceMailer < ApplicationMailer
 
     return unless @appointment
 
-    mail(to: @appointment.user.email, subject: I18n.t('medi_app_thanks_for_booking_an_appointment_with_us'))
+    mail(to: @appointment.user.email, subject: I18n.t('invoice_mail.subject'))
   end
 end
