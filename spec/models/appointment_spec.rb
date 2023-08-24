@@ -50,7 +50,10 @@ RSpec.describe Appointment do
 
   context 'when date_time is in past' do
     it 'should have validation errors' do
-      expect(Appointment.new(**invalid_attributes[5]).valid?).to be_falsey
+      appointment = Appointment.new(**invalid_attributes)
+
+      expect(appointment.valid?).to be_falsey
+      expect(appointment.errors.messages.keys).to include(:date_time)
     end
   end
 
@@ -66,7 +69,10 @@ RSpec.describe Appointment do
     end
 
     it 'should have validation errors' do
-      expect(Appointment.new(**valid_attributes[1]).valid?).to be_falsey
+      appointment = Appointment.new(**valid_attributes[1])
+
+      expect(appointment.valid?).to be_falsey
+      expect(appointment.errors.messages.keys).to include(:date_time)
     end
   end
 

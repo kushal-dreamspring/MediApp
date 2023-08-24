@@ -84,12 +84,18 @@ RSpec.describe '/appointments', type: :request do
   describe 'POST /create' do
     context 'with valid parameters' do
       it 'should set @user to a new user if user does not already exists' do
-        post appointments_url, params: { appointment: { **valid_attributes[0] } }, as: :turbo_stream
+        expect do
+          post appointments_url, params: { appointment: { **valid_attributes[0] } }, as: :turbo_stream
+        end.to change(Appointment, :count).by(1)
+
         expect(assigns(:appointment).user.email).to eq valid_attributes[0][:user_attributes][:email]
       end
 
       it 'should set @user to existing user if user already exists' do
-        post appointments_url, params: { appointment: { **valid_attributes[1] } }, as: :turbo_stream
+        expect do
+          post appointments_url, params: { appointment: { **valid_attributes[1] } }, as: :turbo_stream
+        end.to change(User, :count).by(0)
+
         expect(assigns(:appointment).user.email).to eq valid_attributes[1][:user_attributes][:email]
       end
 
