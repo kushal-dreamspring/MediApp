@@ -47,7 +47,14 @@ class AppointmentsController < ApplicationController
 
   # POST /appointments or /appointments.json
   def create
-    @appointment = Appointment.new(**appointment_params, amount: APPOINTMENT_PRICE_IN_INR, conversion_rates: CurrencyService.exchange_rates)
+    conversion_rates = CurrencyService.exchange_rates
+
+    if conversion_rates.nil?
+      redirect_to new_appointment_url, status: :unprocessable_entity, alert: I18n.t('appointments_page.notice.system_issue_message')
+      return
+    end
+
+    @appointment = Appointment.new(**appointment_params, amount: APPOINTMENT_PRICE_IN_INR, conversion_rates:)
     @appointment.user = User.find_or_initialize_by(email: user_params[:email])
     @appointment.user.update(**user_params)
 
