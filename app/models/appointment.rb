@@ -1,21 +1,14 @@
 class Appointment < ApplicationRecord
-  enum currency: {
-    'INR' => 0,
-    'USD' => 1,
-    'EUR' => 2
-  }
-
   belongs_to :doctor
   belongs_to :user
-  validate :date_must_be_in_future
-  validates_uniqueness_of :date_time, scope: [:user], message: 'User already has a appointment at this time'
-  validates_uniqueness_of :date_time, scope: [:doctor], message: 'Doctor already has a appointment at this time'
+  accepts_nested_attributes_for :user
 
-  private
+  validates_presence_of :doctor, :user, :date_time, :amount, :conversion_rates
+  validates :date_time, comparison: { greater_than: DateTime.current }
+  validates_uniqueness_of :date_time, scope: [:user], message: I18n.t('appointments_model.error_messages.user_already_has_a_appointment_at_this_time')
+  validates_uniqueness_of :date_time, scope: [:doctor], message: I18n.t('appointments_model.error_messages.doctor_already_has_a_appointment_at_this_time')
 
-  def date_must_be_in_future
-    return if date_time >= DateTime.current
-
-    errors.add(:date_time, 'must be in future')
+  def amount_in_preferred_currency
+    (amount * conversion_rates[user.currency_preference]).round(2)
   end
 end

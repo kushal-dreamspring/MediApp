@@ -3,5 +3,5 @@ Patient's Email: <%= @appointment.user.email %>
 Doctor's Name: <%= @appointment.doctor.name %>
 Doctor's Address: <%= @appointment.doctor.address %>
 Date and Time of Appointment: <%= @appointment.date_time %>
-Fee Currency: <%= @appointment.currency %>
+Fee Currency: <%= @appointment.user.currency_preference %>
 Fee Amount: <%= @appointment.amount %>

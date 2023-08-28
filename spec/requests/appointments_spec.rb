@@ -6,20 +6,24 @@ RSpec.describe '/appointments', type: :request do
   let(:valid_attributes) do
     [
       {
-        name: 'Test User',
-        email: 'test@123.com',
         doctor_id: doctors(:one).id,
         date_time: DateTime.now + 20.minutes,
         amount: 500,
-        currency: 'INR'
+        conversion_rates: { "EUR": 0.011076, "INR": 1, "USD": 0.012029 },
+        user_attributes: {
+          name: 'Test User',
+          email: 'test@123.com'
+        }
       },
       {
-        name: users(:zero).name,
-        email: users(:zero).email,
         doctor_id: doctors(:one).id,
         date_time: DateTime.now + 1.hours,
         amount: 500,
-        currency: 'INR'
+        conversion_rates: { "EUR": 0.011076, "INR": 1, "USD": 0.012029 },
+        user_attributes: {
+          name: users(:one).name,
+          email: users(:one).email,
+        }
       }
     ]
   end
@@ -27,12 +31,14 @@ RSpec.describe '/appointments', type: :request do
   let(:invalid_attributes) do
     {
       id: 0,
-      name: users(:zero).name,
-      email: users(:zero).email,
       doctor_id: doctors(:one).id,
       date_time: DateTime.now - 1.hours,
       amount: 500,
-      currency: 'INR'
+      conversion_rates: { "EUR": 0.011076, "INR": 1, "USD": 0.012029 },
+      user_attributes: {
+        name: users(:one).name,
+        email: users(:one).email,
+      }
     }
   end
 
@@ -78,13 +84,19 @@ RSpec.describe '/appointments', type: :request do
   describe 'POST /create' do
     context 'with valid parameters' do
       it 'should set @user to a new user if user does not already exists' do
-        post appointments_url, params: { appointment: { **valid_attributes[0] } }, as: :turbo_stream
-        expect(assigns(:user).email).to eq valid_attributes[0][:email]
+        expect do
+          post appointments_url, params: { appointment: { **valid_attributes[0] } }, as: :turbo_stream
+        end.to change(Appointment, :count).by(1)
+
+        expect(assigns(:appointment).user.email).to eq valid_attributes[0][:user_attributes][:email]
       end
 
       it 'should set @user to existing user if user already exists' do
-        post appointments_url, params: { appointment: { **valid_attributes[1] } }, as: :turbo_stream
-        expect(assigns(:user).email).to eq valid_attributes[1][:email]
+        expect do
+          post appointments_url, params: { appointment: { **valid_attributes[1] } }, as: :turbo_stream
+        end.to change(User, :count).by(0)
+
+        expect(assigns(:appointment).user.email).to eq valid_attributes[1][:user_attributes][:email]
       end
 
       it 'should create a new appointment' do

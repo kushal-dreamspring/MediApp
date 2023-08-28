@@ -1,14 +1,14 @@
 import {Controller} from "@hotwired/stimulus"
-import {min} from "@popperjs/core/lib/utils/math";
 
+let MILLISECOND_IN_SEC = 1000, SECS_IN_MIN = 60, MINS_IN_HR = SECS_IN_MIN, HOURS_IN_DAY = 24, DECIMAL_BASE = 10
 export default class extends Controller {
     static targets = ["countdown", "time", "day", "hour", "minute", "second"]
 
     calculateCountdown(countdownTime) {
-        let days = Math.floor(countdownTime / (1000 * 60 * 60 * 24));
-        let hours = Math.floor((countdownTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        let minutes = Math.floor((countdownTime % (1000 * 60 * 60)) / (1000 * 60));
-        let seconds = Math.floor((countdownTime % (1000 * 60)) / 1000);
+        let days = Math.floor(countdownTime / (MILLISECOND_IN_SEC * SECS_IN_MIN * MINS_IN_HR * HOURS_IN_DAY));
+        let hours = Math.floor((countdownTime % (MILLISECOND_IN_SEC * SECS_IN_MIN * MINS_IN_HR * HOURS_IN_DAY)) / (MILLISECOND_IN_SEC * SECS_IN_MIN * MINS_IN_HR));
+        let minutes = Math.floor((countdownTime % (MILLISECOND_IN_SEC * SECS_IN_MIN * MINS_IN_HR)) / (MILLISECOND_IN_SEC * SECS_IN_MIN));
+        let seconds = Math.floor((countdownTime % (MILLISECOND_IN_SEC * SECS_IN_MIN)) / MILLISECOND_IN_SEC);
 
         return [days, hours, minutes, seconds];
     }
@@ -19,17 +19,17 @@ export default class extends Controller {
 
             const [days, hours, minutes, seconds] = this.calculateCountdown(countdownTime)
 
-            this.dayTargets[0].innerHTML = Math.floor(days / 10);
-            this.dayTargets[1].innerHTML = days % 10;
-            this.hourTargets[0].innerHTML = Math.floor(hours / 10);
-            this.hourTargets[1].innerHTML = hours % 10;
-            this.minuteTargets[0].innerHTML = Math.floor(minutes / 10);
-            this.minuteTargets[1].innerHTML = minutes % 10;
-            this.secondTargets[0].innerHTML = Math.floor(seconds / 10);
-            this.secondTargets[1].innerHTML = seconds % 10;
+            this.dayTargets[0].innerHTML = Math.floor(days / DECIMAL_BASE);
+            this.dayTargets[1].innerHTML = days % DECIMAL_BASE;
+            this.hourTargets[0].innerHTML = Math.floor(hours / DECIMAL_BASE);
+            this.hourTargets[1].innerHTML = hours % DECIMAL_BASE;
+            this.minuteTargets[0].innerHTML = Math.floor(minutes / DECIMAL_BASE);
+            this.minuteTargets[1].innerHTML = minutes % DECIMAL_BASE;
+            this.secondTargets[0].innerHTML = Math.floor(seconds / DECIMAL_BASE);
+            this.secondTargets[1].innerHTML = seconds % DECIMAL_BASE;
 
             if (countdownTime < 0) clearInterval(this.x);
-        }, 1000);
+        }, MILLISECOND_IN_SEC);
     }
 
     connect() {

@@ -160,7 +160,7 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg viewBox='0 0 8 14' 
   background-color: var(--bs-white);
 }
 
-.slot-button:checked + .btn {
+.field_with_errors.slot-button:checked + .btn, .slot-button:checked + .btn {
   background-color: var(--bs-primary);
 }
 
@@ -170,6 +170,10 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg viewBox='0 0 8 14' 
 
 .appointment-form.active {
   display: block;
+
+  .field_with_errors {
+    display: none;
+  }
 }
 
 .user-form.active, .payment-page.active {

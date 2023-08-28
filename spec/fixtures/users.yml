@@ -1,4 +1,10 @@
-zero:
-  id: 0
+one:
+  id: 1
   name: John Doe
   email: johndoe@test.com
+  currency_preference: 'USD'
+two:
+  id: 3
+  name: John Doe 2
+  email: johndoe2@test.com
+  currency_preference: 'INR'

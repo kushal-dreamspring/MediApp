@@ -3,42 +3,40 @@
     <div class="card mx-auto p-3 border-0 shadow">
       <%= image_tag 'congrats.svg', class: "card-img-top m-auto", alt: "congrats", height: '45' %>
       <div class="card-body">
-        <h4 class="h4 card-title mb-4 text-success text-center fw-bold"><%= t('congratulations') %></h4>
-        <h6 class="h6 card-subtitle mb-2 text-center text-body-secondary"><%= t('appointment_booked') %></h6>
+        <h4 class="h4 card-title mb-4 text-success text-center fw-bold"><%= t('appointment_success.congratulations') %></h4>
+        <h6 class="h6 card-subtitle mb-2 text-center text-body-secondary"><%= t('appointment_success.appointment_booked') %></h6>
         <p class="card-text fs-4 fw-bold text-primary text-center">
           <%= render inline: (render file: Rails.root.join('app', 'assets', 'images', 'calendar-2.svg')) %>
           <span class="mx-2">
-          <%= t('today') if appointment_time.to_date.today? %>
-            <%= t('tomorrow') if appointment_time.to_date.tomorrow? %>
-            <%= appointment_time.to_datetime.strftime("#{appointment_time.to_date.day.ordinalize} %B, %I:%M %p") %>
+          <%= print_appointment_date(appointment_time, display_format = 4) %>
         </span>
         </p>
-        <p class="fs-6 text-center"><%= t('meeting_starts_in') %></p>
+        <p class="fs-6 text-center"><%= t('appointment_success.meeting_starts_in') %></p>
         <div class="countdown d-flex justify-content-center" data-controller="countdown">
           <div class="d-none" data-countdown-target="time"><%= appointment_time.to_datetime %></div>
 
           <div class="days">
             <span data-countdown-target="day"></span>
             <span data-countdown-target="day"></span>
-            <span class="label"><%= t('days') %></span>
+            <span class="label"><%= t('appointment_success.days') %></span>
           </div>
           <span class="separator">:</span>
           <div class="hours">
             <span data-countdown-target="hour"></span>
             <span data-countdown-target="hour"></span>
-            <span class="label"><%= t('hours') %></span>
+            <span class="label"><%= t('appointment_success.hours') %></span>
           </div>
           <span class="separator">:</span>
           <div class="minutes">
             <span data-countdown-target="minute"></span>
             <span data-countdown-target="minute"></span>
-            <span class="label"><%= t('mins') %></span>
+            <span class="label"><%= t('appointment_success.mins') %></span>
           </div>
           <span class="separator">:</span>
           <div class="seconds">
             <span data-countdown-target="second"></span>
             <span data-countdown-target="second"></span>
-            <span class="label"><%= t('secs') %></span>
+            <span class="label"><%= t('appointment_success.secs') %></span>
           </div>
         </div>
       </div>

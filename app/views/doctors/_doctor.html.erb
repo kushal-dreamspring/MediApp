@@ -14,12 +14,12 @@
   </div>
   <div class="row justify-content-between">
     <div class="col-6 col-md-7 pe-0 d-flex flex-column justify-content-center">
-      <p class="small mb-0"><span class="text-success fw-semibold"><%= t('next_available') %></span> -
-        <%= @next_appointment[doctor.id].strftime(@next_appointment[doctor.id].today? ? "%I:%M %p" :"%b %d, %I:%M %p") %>
+      <p class="small mb-0"><span class="text-success fw-semibold"><%= t('doctors_card.next_available') %></span> -
+        <%= display_next_appointment(doctor.next_available_appointment) %>
       </p>
     </div>
     <div class="col-6 col-md-5 d-flex justify-content-end">
-      <%= link_to t('book_visit'), new_appointment_path(doctor_id: doctor), class: "btn btn-primary" %>
+      <%= link_to t('doctors_card.book_visit'), new_appointment_path(doctor_id: doctor), class: "btn btn-primary" %>
     </div>
   </div>
 </div>
